@@ -47,8 +47,36 @@ yarn-error.log*
 .vscode/
 
 # ----------------------
+# Alembic / Migrations
+# ----------------------
+*.pyc
+*.pyo
+*.pyd
+
+# ----------------------
+# Docker / logs
+# ----------------------
+*.log
+*.pid
+docker-compose.override.yml
+
+# ----------------------
+# Local databases
+# ----------------------
+*.db
+*.sqlite3
+
+# ----------------------
+# Poetry cache
+# ----------------------
+.cache/
+
+# ----------------------
 # Misc
 # ----------------------
 
 coverage/
-notes.txt
+notes.md
+
+
+
