@@ -77,6 +77,8 @@ docker-compose.override.yml
 
 coverage/
 notes.md
+copilot-instructions.md
+progress.md
 
 
 
