@@ -1,13 +1,10 @@
-from fastapi import Depends
 from sqlalchemy.orm import Session
-
-from app.api.dependencies import get_db
 from app.models.user import User
 from app.schemas import schemas
 
 
 #create_user: Add a new user to the database.
-def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+def register_user(user: schemas.UserCreate, db: Session):
     new_user = User(**user.model_dump())
     db.add(new_user)
     db.commit()

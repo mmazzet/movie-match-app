@@ -1,12 +1,16 @@
-from pytest import Session
+from sqlalchemy.orm import Session
 from app.repositories import user_repository
 from app.core import security
 from app.schemas import schemas
 
 
 def create_user(user: schemas.UserCreate, db: Session):
-    user.password = security.hash_password(user.password)
-    new_user = user_repository.register_user(user, db)
+    hashed_password = security.hash_password(user.password)
+    user_data = schemas.UserCreate(
+        email=user.email,
+        password=hashed_password
+    )
+    new_user = user_repository.register_user(user_data, db)
     return new_user
 
 def get_user(user_id: int, db: Session):
