@@ -1,3 +1,11 @@
+##############################
+# users = what do you want to do with your account?
+# get my profile
+# update my profile
+# delete my account
+# change password
+##############################
+
 from fastapi import APIRouter, HTTPException, status, Depends
 from sqlalchemy.orm import Session
 from app.api.dependencies import get_db
@@ -25,9 +33,3 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
         )
 
 
-@router.post("/users/", status_code=status.HTTP_201_CREATED, response_model=schemas.UserResponse)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-    try:
-        return user_service.create_user(user, db)
-    except ValueError as e:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
