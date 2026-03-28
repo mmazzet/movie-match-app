@@ -1,5 +1,6 @@
 from pydantic import BaseModel, EmailStr, ConfigDict
 from datetime import datetime
+from typing import Optional
 
 class UserResponse(BaseModel):
     id: int
@@ -18,3 +19,6 @@ class UserLogin(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
+
+class TokenData(BaseModel):
+    id: Optional[int] = None

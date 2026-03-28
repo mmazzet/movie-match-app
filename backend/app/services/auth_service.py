@@ -1,9 +1,6 @@
 
 from fastapi import HTTPException, status
-from http.client import HTTPException
-
 from pytest import Session
-
 from app.core.security import verify_password
 from app.models import user
 from app.repositories.user_repository import get_user_by_email
