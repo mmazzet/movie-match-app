@@ -17,4 +17,8 @@ def get_user_by_id(user_id: int, db: Session):
     user = db.query(User).filter(User.id == user_id).first()
 
     return user
+
+def get_user_by_email(db: Session, email: str):
+    user = db.query(User).filter(User.email == email).first()
     
+    return user
