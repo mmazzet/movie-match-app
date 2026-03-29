@@ -1,8 +1,13 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import RegisterPage from "./pages/RegisterPage"
+
 function App() {
   return (
-    <div className="text-3xl font-bold text-blue-500">
-      Is Tailwind in this room with us?
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<RegisterPage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
