@@ -15,7 +15,7 @@ from app.schemas import schemas
 from app.services import auth_service
 
 
-router = APIRouter(tags=["authentication"])
+router = APIRouter(prefix="/auth", tags=["authentication"])
 
 @router.post("/register", status_code=status.HTTP_201_CREATED, response_model=schemas.UserResponse)
 def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
