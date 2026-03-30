@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { login } from '../services/authService'
+import useAuth from '../hooks/useAuth'
 
 function LoginPage() {
+  const { token, handleLogin } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -18,6 +20,8 @@ function LoginPage() {
     try {
       const response = await login({ email, password })
       console.log('Login successful!', response)
+      console.log('token from hook:', token)
+      handleLogin(response.access_token)
     } catch {
       setError('Invalid email or password.')
     } finally {
