@@ -7,6 +7,9 @@ export const register = async (credentials: RegisterCredentials): Promise<User> 
 }
 
 export const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
-  const response = await api.post<AuthResponse>('/auth/login', credentials)
+  const formData = new URLSearchParams()
+  formData.append('username', credentials.email)
+  formData.append('password', credentials.password)
+  const response = await api.post<AuthResponse>('/auth/login', formData)
   return response.data
 }
