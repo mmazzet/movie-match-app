@@ -22,7 +22,7 @@ function LoginPage() {
       console.log('token from hook:', token)
       console.log("🥳 LoginPage sees token:", token)
       handleLogin(response.access_token)
-      navigate('/dashboard')
+      navigate('/discover')
     } catch {
       setError('Invalid email or password.')
     } finally {
