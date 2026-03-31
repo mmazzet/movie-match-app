@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { login } from '../services/authService'
+import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
 function LoginPage() {
+  const navigate = useNavigate()
   const { token, handleLogin } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,6 +22,7 @@ function LoginPage() {
       console.log('token from hook:', token)
       console.log("🥳 LoginPage sees token:", token)
       handleLogin(response.access_token)
+      navigate('/dashboard')
     } catch {
       setError('Invalid email or password.')
     } finally {
