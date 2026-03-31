@@ -1,20 +1,15 @@
-import { useState } from 'react'
+import { useContext } from "react"
+import { AuthContext } from "../context/AuthContext"
+import type { AuthContextType } from "../context/AuthContextType"
 
-function useAuth() {
-  const [token, setToken] = useState<string | null>(() => {
-    console.log('initialising token from localStorage')
-    return localStorage.getItem('token')
-  })
+function useAuth(): AuthContextType {
+  const context = useContext(AuthContext)
 
-  const handleLogin = (newToken: string) => {
-    console.log('saving token:', newToken)
-    setToken(newToken)
-    localStorage.setItem('token', newToken)
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider")
   }
 
-  console.log('current token:', token)
-
-  return { token, handleLogin }
+  return context
 }
 
 export default useAuth

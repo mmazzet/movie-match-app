@@ -13,14 +13,12 @@ function LoginPage() {
     e.preventDefault()
     setError('')
     setLoading(true)
-    console.log('Form submitted!')
-    console.log('email:', email)
-    console.log('password:', password)
 
     try {
       const response = await login({ email, password })
       console.log('Login successful!', response)
       console.log('token from hook:', token)
+      console.log("🥳 LoginPage sees token:", token)
       handleLogin(response.access_token)
     } catch {
       setError('Invalid email or password.')
