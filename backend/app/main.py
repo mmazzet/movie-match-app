@@ -4,6 +4,10 @@ from app.api.router import api_router
 
 app = FastAPI(title="Movie Match API")
 
+@app.get("/")
+async def root():
+    return {"message": "Hello Movie Match API"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
