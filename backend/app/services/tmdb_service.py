@@ -14,5 +14,18 @@ async def get_popular_movies():
     async with httpx.AsyncClient() as client:
         response = await client.get(url, params=params)
         data = response.json()
-        print(data)
-        return data
+        
+        movies = []
+        for movie in data["results"]:
+            movie_info = {
+                "tmdb_id": movie["id"],
+                "title": movie["title"],
+                "poster_path": movie["poster_path"],
+                "release_date": movie["release_date"],
+                "overview": movie["overview"],
+            }
+            movies.append(movie_info)
+        
+    print(f"Fetched {len(movies)} popular movies")
+
+    return movies
