@@ -8,18 +8,22 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie }: MovieCardProps) {
   return (
-    <div>
+    <div className="rounded overflow-hidden shadow">
       {movie.poster_path ? (
         <img
           src={`${TMDB_IMAGE_BASE_URL}${movie.poster_path}`}
           alt={movie.title}
-          width={200}
+          className="w-full"
         />
       ) : (
-        <p>No poster available</p>
+        <div className="bg-gray-200 h-48 flex items-center justify-center">
+          <p>No poster</p>
+        </div>
       )}
-      <p>{movie.title}</p>
-      <p>{movie.release_date}</p>
+      <div className="p-2">
+        <p className="font-semibold">{movie.title}</p>
+        <p className="text-sm text-gray-500">{movie.release_date}</p>
+      </div>
     </div>
   );
 }
