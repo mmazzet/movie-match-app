@@ -1,4 +1,6 @@
+import { useState } from "react";
 import type { Movie } from "../types/movie";
+import { likeMovie, unlikeMovie } from "../services/likesService";
 
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -7,6 +9,17 @@ interface MovieCardProps {
 }
 
 export default function MovieCard({ movie }: MovieCardProps) {
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = async () => {
+    if (liked) {
+      await unlikeMovie(movie.tmdb_id);
+      setLiked(false);
+    } else {
+      await likeMovie(movie);
+      setLiked(true);
+    }
+  };  
   return (
     <div className="rounded overflow-hidden shadow">
       {movie.poster_path ? (
@@ -23,6 +36,12 @@ export default function MovieCard({ movie }: MovieCardProps) {
       <div className="p-2">
         <p className="font-semibold">{movie.title}</p>
         <p className="text-sm text-gray-500">{movie.release_date}</p>
+        <button
+          onClick={handleLike}
+          className={`mt-2 px-4 py-1 rounded text-white text-sm ${liked ? "bg-red-500" : "bg-blue-500"}`}
+        >
+          {liked ? "Unlike" : "Like"}
+        </button>
       </div>
     </div>
   );
