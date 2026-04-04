@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.like import Like
+from app.models.movie import Movie
 
 def get_like(db: Session, user_id: int, movie_id: int) -> Like | None:
     return db.query(Like).filter(Like.user_id == user_id, Like.movie_id == movie_id).first()
@@ -19,5 +20,5 @@ def delete_like(db: Session, user_id: int, movie_id: int) -> None:
         db.commit()
         print(f"User {user_id} unliked movie {movie_id}")
 
-def get_likes_by_user(db: Session, user_id: int) -> list[Like]:
-    return db.query(Like).filter(Like.user_id == user_id).all()
+def get_likes_by_user(db: Session, user_id: int) -> list[Movie]:
+    return db.query(Movie).join(Like, Like.movie_id == Movie.id).filter(Like.user_id == user_id).all()
