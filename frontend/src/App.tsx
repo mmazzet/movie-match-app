@@ -6,6 +6,7 @@ import { AuthProvider } from "./context/AuthProvider"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { PublicRoute } from "./components/PublicRoute"
 import LandingPage from "./pages/LandingPage"
+import MyMoviesPage from "./pages/MyMoviesPage"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/discover" element={<ProtectedRoute><DiscoverPage /></ProtectedRoute>} />
+          <Route path="/my-movies" element={<ProtectedRoute><MyMoviesPage /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

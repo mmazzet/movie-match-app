@@ -1,4 +1,5 @@
 export interface Movie {
+  id: number;
   tmdb_id: number;
   title: string;
   poster_path: string | null;

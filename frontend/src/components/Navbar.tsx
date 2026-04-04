@@ -11,6 +11,9 @@ export function Navbar() {
         <Link to="/discover" className="hover:text-gray-300">
           Discover
         </Link>
+        <Link to="/my-movies" className="hover:text-gray-300">
+          My Movies
+        </Link>
         <Link to="/rooms" className="hover:text-gray-300">
           Rooms
         </Link>
