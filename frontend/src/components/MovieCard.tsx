@@ -6,10 +6,11 @@ const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 interface MovieCardProps {
   movie: Movie;
+  isLiked: boolean;
 }
 
-export default function MovieCard({ movie }: MovieCardProps) {
-  const [liked, setLiked] = useState(false);
+export default function MovieCard({ movie, isLiked }: MovieCardProps) {
+  const [liked, setLiked] = useState(isLiked);
 
   const handleLike = async () => {
     if (liked) {
