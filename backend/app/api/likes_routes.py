@@ -10,7 +10,9 @@ router = APIRouter(tags=["likes"])
 
 @router.post("/likes")
 def like_movie(request: LikeRequest, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
-    likes_service.like_movie(db, current_user.id, request.tmdb_id, request.title, request.poster_path, request.release_date, request.overview)
+    already_liked = likes_service.like_movie(db, current_user.id, request.tmdb_id, request.title, request.poster_path, request.release_date, request.overview)
+    if already_liked:
+        return {"message": "Movie already liked"}
     return {"message": "Movie liked"}
 
 @router.delete("/likes/{tmdb_id}")

@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from app.models.like import Like
 from app.models.movie import Movie
+from sqlalchemy.exc import IntegrityError
+from app.core.exceptions import AlreadyExistsError
 
 def get_like(db: Session, user_id: int, movie_id: int) -> Like | None:
     return db.query(Like).filter(Like.user_id == user_id, Like.movie_id == movie_id).first()
@@ -8,11 +10,14 @@ def get_like(db: Session, user_id: int, movie_id: int) -> Like | None:
 def create_like(db: Session, user_id: int, movie_id: int) -> Like:
     like = Like(user_id=user_id, movie_id=movie_id)
     db.add(like)
-    db.commit()
-    db.refresh(like)
-    print(f"User {user_id} liked movie {movie_id}")
-    return like
-
+    try:
+        db.commit()
+        db.refresh(like)
+        print(f"User {user_id} liked movie {movie_id}")
+        return like
+    except IntegrityError:
+        db.rollback()
+        raise AlreadyExistsError("Movie aleady liked by user")
 def delete_like(db: Session, user_id: int, movie_id: int) -> None:
     like = get_like(db, user_id, movie_id)
     if like:

@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from app.models.user import User
+from app.core.exceptions import AlreadyExistsError
 
 
 
@@ -13,7 +14,7 @@ def create_user(user_email: str, hashed_password: str, db: Session):
         return new_user
     except IntegrityError:
         db.rollback()
-        raise ValueError("Email already registered")
+        raise AlreadyExistsError("Registration failed")
 
 # get_user_by_id: Fetch a user by their ID.
 def get_user_by_id(user_id: int, db: Session):

@@ -22,14 +22,9 @@ def get_me(current_user: User = Depends(oauth2.get_current_user)):
     return current_user
     
 
-@router.get("/users/{user_id}", status_code=status.HTTP_200_OK, response_model=schemas.UserResponse)
-def get_user(user_id: int, db: Session = Depends(get_db)):
-    try:
-        return user_service.get_user(user_id, db)
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(e)
-        )
+@router.get("/users/{user_id}", status_code=200, response_model=schemas.UserResponse)
+def get_user(user_id: int, db: Session = Depends(get_db), _: User = Depends(get_current_user)):
+    return user_service.get_user(user_id, db)
+
 
 
