@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { register } from '../services/authService'
+import { getErrorMessage } from '../services/api'
 
 function RegisterPage() {
   const navigate = useNavigate()
@@ -18,8 +19,8 @@ function RegisterPage() {
       const user = await register({ email, password })
       console.log('Registration successful!', user)
       navigate('/login')
-    } catch {
-      setError('Registration failed. Please try again.')
+    } catch (error) {
+      setError(getErrorMessage(error))
     } finally {
       setLoading(false)
     }
@@ -31,7 +32,7 @@ function RegisterPage() {
         <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
           Create an account
         </h1>
-        {error && <p>{error}</p>}
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Email</label>

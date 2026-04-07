@@ -4,17 +4,44 @@ import type { Movie } from '../types/movie'
 
 export default function MyMoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
   const handleUnlike = async (tmdb_id: number) => {
     await unlikeMovie(tmdb_id)
     setMovies((prev) => prev.filter((m) => m.tmdb_id !== tmdb_id))
   }
 
   useEffect(() => {
-    getLikedMovies().then((data) => {
-      console.log('Liked movies:', data)
-      setMovies(data)
-    })
+    getLikedMovies()
+      .then((data) => {
+        setMovies(data)
+      })
+      .catch(() => {
+        setError('Failed to load your movies. Please try again.')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
+
+  if (loading) {
+    return (
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">My Movies</h1>
+        <p className="text-gray-500">Loading your movies...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="p-6">
+        <h1 className="text-2xl font-bold mb-4">My Movies</h1>
+        <p className="text-red-500">{error}</p>
+      </div>
+    )
+  }
 
   return (
     <div className="p-6">

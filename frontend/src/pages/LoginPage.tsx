@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { login } from '../services/authService'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
+import { getErrorMessage } from '../services/api'
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -20,8 +21,8 @@ function LoginPage() {
       const response = await login({ email, password })
       handleLogin(response.access_token)
       navigate('/discover')
-    } catch {
-      setError('Invalid email or password.')
+    } catch (error) {
+      setError(getErrorMessage(error))
     } finally {
       setLoading(false)
     }
@@ -34,7 +35,7 @@ function LoginPage() {
           Login
         </h1>
 
-        {error && <p>{error}</p>}
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <div>

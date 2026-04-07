@@ -12,4 +12,14 @@ api.interceptors.request.use((config) => {
   return config
 })
 
+export function getErrorMessage(error: unknown): string {
+  if (axios.isAxiosError(error)) {
+    const message = error.response?.data?.error
+    if (typeof message === 'string') {
+      return message
+    }
+  }
+  return 'Something went wrong. Please try again.'
+}
+
 export default api
