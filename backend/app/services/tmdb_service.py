@@ -10,7 +10,7 @@ TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
 async def get_popular_movies():
     url = f"{TMDB_BASE_URL}/movie/popular"
-    params = {"api_key": TMDB_API_KEY}
+    params = {"api_key": TMDB_API_KEY, "language": "en-IE", "region": "IE"}
     
     try:
         async with httpx.AsyncClient() as client:
