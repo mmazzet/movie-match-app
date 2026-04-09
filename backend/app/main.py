@@ -6,11 +6,14 @@ from app.core.config import settings
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from app.core.logger import logger
 
 # creates the limiter, using the user's IP address as the key
 limiter = Limiter(key_func=get_remote_address)
 
 app = FastAPI(title="Movie Match API")
+
+logger.info("🆙 Movie Match API is starting up")
 
 # attach the limiter to the app
 app.state.limiter = limiter
