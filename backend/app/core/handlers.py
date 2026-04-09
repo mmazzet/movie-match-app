@@ -15,7 +15,7 @@ def register_exception_handlers(app):
 
   @app.exception_handler(AlreadyExistsError)
   async def already_exists_handler(request: Request, exc: AlreadyExistsError):
-      return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"error": exc.message})
+      return JSONResponse(status_code=status.HTTP_409_CONFLICT, content={"error": exc.message})
 
   @app.exception_handler(AuthenticationError)
   async def auth_error_handler(request: Request, exc: AuthenticationError):
