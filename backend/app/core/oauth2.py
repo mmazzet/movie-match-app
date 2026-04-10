@@ -10,6 +10,7 @@ from app.api import dependencies
 import os
 
 from app.repositories import user_repository
+from app.core.logger import logger
 
 load_dotenv()
 
@@ -37,9 +38,11 @@ def verify_access_token(token: str, credentials_exception):
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         id: int = payload.get("user_id")
         if id is None:
+            logger.warning("⚠️ Token missing user_id field")
             raise credentials_exception
         token_data = schemas.TokenData(id=id)
     except JWTError:
+        logger.warning("⚠️ Invalid or expired token")
         raise credentials_exception
     return token_data
 
@@ -49,6 +52,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     token = verify_access_token(token, credentials_exception)
     user = user_repository.get_user_by_id(token.id, db)
     if not user:
+        logger.warning("⚠️ Token valid but user not found, id: %s", token.id)
         raise credentials_exception
-    print("😍 Current user:", user.email)
+    logger.info("✅ Current user authenticated: %s", user.email)
     return user

@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from app.repositories import movie_repository, like_repository
 from app.core.exceptions import NotFoundError
+from app.core.logger import logger
 
 def like_movie(db: Session, user_id: int, tmdb_id: int, title: str, poster_path: str | None, release_date: str | None, overview: str | None):
     # check if movie exists in local db, if not save it
@@ -18,7 +19,7 @@ def like_movie(db: Session, user_id: int, tmdb_id: int, title: str, poster_path:
 def unlike_movie(db: Session, user_id: int, tmdb_id: int):
     movie = movie_repository.get_movie_by_tmdb_id(db, tmdb_id)
     if not movie:
-        print(f"Movie with tmdb_id {tmdb_id} not found")
+        logger.warning("⚠️ Movie with tmdb_id %s not found", tmdb_id)
         raise NotFoundError(f"Movie with tmdb_id {tmdb_id} not found")
     like_repository.delete_like(db, user_id, movie.id)
 

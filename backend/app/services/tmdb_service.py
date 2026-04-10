@@ -1,6 +1,7 @@
 import httpx
 from dotenv import load_dotenv
 from app.core.exceptions import ExternalServiceError
+from app.core.logger import logger
 import os
 
 load_dotenv()
@@ -17,7 +18,7 @@ async def get_popular_movies():
             response = await client.get(url, params=params)
 
             if response.status_code != 200:
-                print(f"TMDB API error: {response.status_code} - {response.text}")
+                logger.error("❌ TMDB API error: %s - %s", response.status_code, response.text)
                 raise ExternalServiceError("Failed to fetch movies from TMDB")
             
             data = response.json()
@@ -33,8 +34,9 @@ async def get_popular_movies():
                 }
                 movies.append(movie_info)
             
-        print(f"Fetched {len(movies)} popular movies")
+        logger.info("✅ Fetched %s popular movies from TMDB", len(movies))
 
         return movies
     except httpx.RequestError:
+        logger.error("❌ Could not connect to TMDB")
         raise ExternalServiceError("Could not connect to TMDB")
