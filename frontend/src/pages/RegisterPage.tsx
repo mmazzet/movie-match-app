@@ -29,44 +29,46 @@ function RegisterPage() {
   }
 
   return (
-    <div className="h-screen flex bg-gray-bg1">
-      <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
-        <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 px-4">
+      <div className="w-full max-w-md bg-white rounded-lg shadow p-8">
+        <h1 className="text-2xl font-medium text-center mb-8">
           Create an account
         </h1>
+
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <form onSubmit={handleSubmit}>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label>Email</label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
-              className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               placeholder="email@example.com"
+              className="w-full p-3 border rounded-md text-sm outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
+
           <div>
-            <label>Password</label>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
-              className={`w-full p-2 text-primary border rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4`}
               placeholder="••••••••"
+              className="w-full p-3 border rounded-md text-sm outline-none"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div className="flex justify-center items-center mt-6">
-            <button
-              type="submit"
-              disabled={loading}
-              className={`bg-green py-2 px-4 text-sm bg-green-500 rounded border border-green focus:outline-none focus:border-green-dark`}
-            >
-              {loading ? 'Creating account...' : 'Register'}
-            </button>
-          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 mt-2 bg-green-500 text-white rounded-md text-sm font-medium"
+          >
+            {loading ? 'Creating account...' : 'Register'}
+          </button>
         </form>
       </div>
     </div>
