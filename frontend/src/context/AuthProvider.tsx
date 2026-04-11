@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import { AuthContext } from './AuthContext'
+import logger from '../services/logger'
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const isLoading = false
   const [token, setToken] = useState<string | null>(() => {
-    console.log('initialising token from localStorage')
+    logger.info('Initialising token from localStorage')
     return localStorage.getItem('token')
   })
 
   const handleLogin = (newToken: string) => {
-    console.log('saving token:', newToken)
+    logger.info('User logged in, token saved')
     setToken(newToken)
     localStorage.setItem('token', newToken)
   }
 
   const handleLogout = () => {
-    console.log('logging out, clearing token')
+    logger.info('User logged out, token cleared')
     setToken(null)
     localStorage.removeItem('token')
   }

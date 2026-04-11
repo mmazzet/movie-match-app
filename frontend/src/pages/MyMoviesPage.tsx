@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getLikedMovies, unlikeMovie } from '../services/likesService'
 import type { Movie } from '../types/movie'
+import logger from '../services/logger'
 
 export default function MyMoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -8,16 +9,23 @@ export default function MyMoviesPage() {
   const [error, setError] = useState('')
 
   const handleUnlike = async (tmdb_id: number) => {
-    await unlikeMovie(tmdb_id)
-    setMovies((prev) => prev.filter((m) => m.tmdb_id !== tmdb_id))
+    try {
+      await unlikeMovie(tmdb_id)
+      setMovies((prev) => prev.filter((m) => m.tmdb_id !== tmdb_id))
+      logger.info('Movie unliked', tmdb_id)
+    } catch  (error){
+      logger.error('Failed to unlike movie', error)
+    }
   }
 
-  useEffect(() => {
+ useEffect(() => {
     getLikedMovies()
       .then((data) => {
+        logger.info('Liked movies loaded', data.length)
         setMovies(data)
       })
-      .catch(() => {
+      .catch((error) => {
+        logger.error('Failed to load liked movies', error)
         setError('Failed to load your movies. Please try again.')
       })
       .finally(() => {

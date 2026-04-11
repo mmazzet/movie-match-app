@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { register } from '../services/authService'
 import { getErrorMessage } from '../services/api'
+import logger from '../services/logger'
 
 function RegisterPage() {
   const navigate = useNavigate()
@@ -16,10 +17,11 @@ function RegisterPage() {
     setLoading(true)
 
     try {
-      const user = await register({ email, password })
-      console.log('Registration successful!', user)
+      await register({ email, password })
+      logger.info('Registration successful') 
       navigate('/login')
     } catch (error) {
+      logger.error('Registration failed', error)
       setError(getErrorMessage(error))
     } finally {
       setLoading(false)

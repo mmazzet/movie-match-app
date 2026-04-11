@@ -1,12 +1,20 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../services/api'
+import logger from '../services/logger'
+
 
 function LandingPage() {
   const navigate = useNavigate()
 
   useEffect(() => {
     api.get('/health')
+      .then(() => {
+        logger.info('Backend health check passed')
+      })
+      .catch((error) => {
+        logger.error('Backend health check failed', error)
+      })
   }, [])
 
   return (

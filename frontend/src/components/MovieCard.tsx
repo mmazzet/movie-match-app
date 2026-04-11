@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Movie } from "../types/movie";
 import { likeMovie, unlikeMovie } from "../services/likesService";
+import logger from "../services/logger";
 
 const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -13,14 +14,20 @@ export default function MovieCard({ movie, isLiked }: MovieCardProps) {
   const [liked, setLiked] = useState(isLiked);
 
   const handleLike = async () => {
-    if (liked) {
-      await unlikeMovie(movie.tmdb_id);
-      setLiked(false);
-    } else {
-      await likeMovie(movie);
-      setLiked(true);
+    try {
+      if (liked) {
+        await unlikeMovie(movie.tmdb_id)
+        setLiked(false)
+        logger.info('Movie unliked', movie.tmdb_id)
+      } else {
+        await likeMovie(movie)
+        setLiked(true)
+        logger.info('Movie liked', movie.tmdb_id)
+      }
+    } catch (error) {
+      logger.error('Failed to update like status', error)
     }
-  };  
+  } 
   return (
     <div className="rounded overflow-hidden shadow">
       {movie.poster_path ? (

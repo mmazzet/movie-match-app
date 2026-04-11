@@ -3,6 +3,7 @@ import { login } from '../services/authService'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import { getErrorMessage } from '../services/api'
+import logger from '../services/logger'
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -20,8 +21,10 @@ function LoginPage() {
     try {
       const response = await login({ email, password })
       handleLogin(response.access_token)
+      logger.info('Login successful')
       navigate('/discover')
     } catch (error) {
+      logger.error('Login failed', error)
       setError(getErrorMessage(error))
     } finally {
       setLoading(false)

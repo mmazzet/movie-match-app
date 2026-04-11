@@ -3,6 +3,7 @@ import type { Movie } from '../types/movie'
 import { getPopularMovies } from '../services/movieService'
 import MovieCard from "../components/MovieCard";
 import { getLikedMovies } from '../services/likesService';
+import logger from '../services/logger'
 
 
 export default function DiscoverPage() {
@@ -14,10 +15,12 @@ export default function DiscoverPage() {
   useEffect(() => {
     Promise.all([getPopularMovies(), getLikedMovies()])
       .then(([movies, liked]) => {
+        logger.info('Discover page loaded', { movies: movies.length, liked: liked.length })
         setMovies(movies)
         setLikedIds(new Set(liked.map((m) => m.tmdb_id)))
       })
-      .catch(() => {
+      .catch((error) => {
+        logger.error('Failed to load discover page data', error)
         setError('Failed to load movies. Please try again.')
       })
       .finally(() => {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import logger from './logger'
 
 type ValidationError = {
   field: string
@@ -25,7 +26,7 @@ api.interceptors.response.use(
       error.response?.status === 401 &&
       !error.config?.url?.includes('/auth/login')  // skip login route
     ) {
-      console.log("Token expired or invalid — redirecting to login")
+      logger.warn('Token expired or invalid — redirecting to login')
       localStorage.removeItem('token')
       window.location.href = '/login'
     }
