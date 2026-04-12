@@ -9,6 +9,8 @@ from app.db.database import Base, DATABASE_URL
 from app.models.user import User
 from app.models.movie import Movie
 from app.models.like import Like
+from app.models.room import Room
+from app.models.room_member import RoomMember
 
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")))

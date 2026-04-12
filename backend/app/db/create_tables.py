@@ -1,7 +1,9 @@
 from app.db.database import Base, engine
-from app.models.user import User  # import User model, Movie and Like models as well
+from app.models.user import User
 from app.models.movie import Movie
 from app.models.like import Like
+from app.models.room import Room
+from app.models.room_member import RoomMember
 from app.core.logger import logger
 
 try:
