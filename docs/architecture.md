@@ -477,6 +477,63 @@ Test full workflows:
 
 ---
 
+# Infrastructure Layer
+
+The application implements cross-cutting infrastructure concerns that support all layers.
+
+## Logging Architecture
+
+### Backend
+
+- **Framework**: Python's built-in `logging` module
+- **Logger Name**: "movie_match"
+- **Log Level**: INFO
+- **Output**: StreamHandler (console)
+- **Format**: `%(asctime)s - %(levelname)s - %(message)s`
+- **Usage**: Integrated throughout service and repository layers with contextual emoji prefixes
+- **Future**: Ready for Sentry/New Relic integration in production
+
+### Frontend
+
+- **Framework**: Custom logger utility in `services/logger.ts`
+- **Environment-Aware**:
+  - Development: Logs info and warnings to console
+  - Production: Only errors logged (always sent, prepared for Sentry/New Relic)
+- **Methods**: `info()`, `warn()`, `error()`
+- **Integration Points**: Page loads, user interactions, API calls
+
+## Exception Handling Architecture
+
+### Backend
+
+- **Strategy**: Centralized exception handling via `register_exception_handlers()` in `main.py`
+- **Custom Exceptions**:
+  - `NotFoundError` → 404 Not Found
+  - `AlreadyExistsError` → 409 Conflict
+  - `AuthenticationError` → 401 Unauthorized
+  - `ExternalServiceError` → 503 Service Unavailable
+- **Validation Errors** → 422 Unprocessable Entity with field-level error details
+- **Generic Exceptions** → 500 Internal Server Error
+- **Response Format**: JSON with error messages and field details
+
+### Frontend
+
+- **Request Interceptor**: Automatically attaches JWT token from localStorage to all requests
+- **Response Interceptor**: Handles 401 errors by clearing token and redirecting to `/login`
+- **Error Parser** (`getErrorMessage()`): Intelligently parses three types of error responses:
+  - Custom exception messages (string format)
+  - Validation errors (array format with field names)
+  - Generic fallback error
+
+This layered approach ensures:
+
+- Consistent error responses across the API
+- Type-safe error handling on the frontend
+- Clear logging of errors for debugging
+- Graceful degradation for end users
+
+---
+
 # Deployment Architecture (Future)
 
 Initial deployment will include:

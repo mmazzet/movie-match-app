@@ -26,7 +26,7 @@ users
 -----
 id (PK)
 email
-password_hash
+password
 created_at
 
 
@@ -37,6 +37,7 @@ tmdb_id
 title
 poster_path
 release_date
+overview
 
 
 likes
@@ -44,7 +45,6 @@ likes
 id (PK)
 user_id (FK → users.id)
 movie_id (FK → movies.id)
-created_at
 
 
 rooms
@@ -199,7 +199,7 @@ Each user can:
 ```
 id (PK)
 email
-password_hash
+password
 created_at
 ```
 
@@ -207,7 +207,7 @@ created_at
 
 - `id` is the primary key
 - `email` must be unique
-- `password_hash` stores the hashed password
+- `password` stores the hashed password
 - Plain passwords must **never** be stored
 
 Example constraint:
@@ -244,13 +244,15 @@ tmdb_id
 title
 poster_path
 release_date
+overview
 ```
 
 ## Notes
 
-- `tmdb_id` corresponds to the movie ID from TMDB
+- `tmdb_id` corresponds to the movie ID from TMDB (must be unique to prevent duplicates)
 - `poster_path` stores the movie poster path returned by the API
 - `release_date` stores the movie release date
+- `overview` stores the movie description/synopsis from TMDB
 
 Recommended constraint:
 
@@ -285,19 +287,16 @@ user_id (FK → users.id)
 movie_id (FK → movies.id)
 ```
 
+## Notes
+
+- Cascade delete enabled on both `user_id` and `movie_id` foreign keys
+- Deleting a user removes all their likes
+- Deleting a movie removes all associated likes
+
 ## Relationships
 
 - User → many likes  
 - Movie → many likes
-
-## Notes
-
-A user should not be able to like the same movie twice.
-
-Recommended constraint:
-
-```sql
-UNIQUE(user_id, movie_id)
 ```
 
 ---
