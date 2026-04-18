@@ -4,10 +4,19 @@ from sqlalchemy.exc import IntegrityError
 from app.core.exceptions import AlreadyExistsError
 from app.core.logger import logger
 
+
 def get_movie_by_tmdb_id(db: Session, tmdb_id: int) -> Movie | None:
     return db.query(Movie).filter(Movie.tmdb_id == tmdb_id).first()
 
-def create_movie(db: Session, tmdb_id: int, title: str, poster_path: str | None, release_date: str | None, overview: str | None) -> Movie:
+
+def create_movie(
+    db: Session,
+    tmdb_id: int,
+    title: str,
+    poster_path: str | None,
+    release_date: str | None,
+    overview: str | None,
+) -> Movie:
     movie = Movie(
         tmdb_id=tmdb_id,
         title=title,

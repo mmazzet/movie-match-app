@@ -3,11 +3,13 @@ from datetime import datetime
 from typing import Optional
 import re
 
+
 class UserResponse(BaseModel):
     id: int
     email: EmailStr
     created_at: datetime
     model_config = ConfigDict(from_attributes=True)
+
 
 class UserCreate(BaseModel):
     email: EmailStr
@@ -34,13 +36,16 @@ class UserCreate(BaseModel):
 
         return value
 
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str
+
 
 class TokenData(BaseModel):
     id: Optional[int] = None

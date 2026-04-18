@@ -38,5 +38,19 @@ build-backend = "poetry.core.masonry.api"
 
 [dependency-groups]
 dev = [
-    "black (>=26.3.1,<27.0.0)"
+    "black (>=26.3.1,<27.0.0)",
+    "pre-commit (>=4.5.1,<5.0.0)"
 ]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+
+exclude = '''
+/(
+    migrations
+  | __pycache__
+  | \.venv
+  | \.pytest_cache
+)/
+'''

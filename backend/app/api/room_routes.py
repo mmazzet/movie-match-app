@@ -9,11 +9,15 @@ router = APIRouter(tags=["rooms"])
 
 
 @router.post("/rooms", status_code=status.HTTP_201_CREATED, response_model=RoomResponse)
-def create_room(request: RoomRequest, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+def create_room(
+    request: RoomRequest,
+    db: Session = Depends(get_db),
+    current_user=Depends(get_current_user),
+):
     room = create_room_with_member(
         db=db,
         room_name=request.room_name,
         creator_id=current_user.id,
-        friend_email=request.friend_email
+        friend_email=request.friend_email,
     )
     return room

@@ -1,8 +1,10 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
 
+
 class RoomRequest(BaseModel):
     room_name: str
     friend_email: EmailStr
+
 
 class RoomResponse(BaseModel):
     name: str

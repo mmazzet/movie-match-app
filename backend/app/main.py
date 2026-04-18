@@ -19,9 +19,11 @@ logger.info("🆙 Movie Match API is starting up")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello Movie Match API"}
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -34,4 +36,3 @@ app.add_middleware(
 app.include_router(api_router, prefix="/api/v1")
 
 register_exception_handlers(app)
-

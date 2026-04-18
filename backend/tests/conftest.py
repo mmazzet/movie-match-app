@@ -1,4 +1,5 @@
 import os
+
 os.environ["RATELIMIT_ENABLED"] = "0"
 
 import pytest
@@ -10,13 +11,12 @@ from app.db.database import Base
 from tests.test_db_config import engine, TestingSessionLocal
 
 
-
 # Recreate all tables before each test, drop after
 @pytest.fixture()
 def db():
     Base.metadata.drop_all(bind=engine)
     Base.metadata.create_all(bind=engine)
-    
+
     session = TestingSessionLocal()
     try:
         yield session

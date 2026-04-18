@@ -18,5 +18,3 @@ engine = create_engine(TEST_DATABASE_URL)
 TestingSessionLocal = sessionmaker(bind=engine)
 
 Base.metadata.create_all(bind=engine)
-
-

@@ -17,14 +17,14 @@ from app.core import oauth2
 
 router = APIRouter(tags=["users"])
 
+
 @router.get("/users/me", response_model=schemas.UserResponse)
 def get_me(current_user: User = Depends(oauth2.get_current_user)):
     return current_user
-    
+
 
 @router.get("/users/{user_id}", status_code=200, response_model=schemas.UserResponse)
-def get_user(user_id: int, db: Session = Depends(get_db), _: User = Depends(get_current_user)):
+def get_user(
+    user_id: int, db: Session = Depends(get_db), _: User = Depends(get_current_user)
+):
     return user_service.get_user(user_id, db)
-
-
-

@@ -1,4 +1,3 @@
-
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
@@ -10,6 +9,7 @@ from app.schemas import schemas
 from app.core.exceptions import AlreadyExistsError, AuthenticationError
 from app.core.logger import logger
 
+
 def register_user(user: schemas.UserCreate, db: Session):
     hashed_password = hash_password(user.password)
     try:
@@ -17,7 +17,8 @@ def register_user(user: schemas.UserCreate, db: Session):
         return new_user
     except ValueError as e:
         raise AlreadyExistsError("Registration failed")
-    
+
+
 def login_user(db: Session, email: str, password: str):
     user = user_repository.get_user_by_email(db, email)
     if not user:

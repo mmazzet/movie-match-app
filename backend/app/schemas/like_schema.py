@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class LikeRequest(BaseModel):
     tmdb_id: int
     title: str
