@@ -1,8 +1,9 @@
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from app.models.user import User
+from sqlalchemy.orm import Session
+
 from app.core.exceptions import AlreadyExistsError
 from app.core.logger import logger
+from app.models.user import User
 
 
 def create_user(user_email: str, hashed_password: str, db: Session):

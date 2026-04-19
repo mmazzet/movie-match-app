@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from app.api.dependencies import get_db
 from app.core.oauth2 import get_current_user
-from app.services import likes_service
-from app.schemas.movie_schema import MovieResponse
 from app.schemas.like_schema import LikeRequest
+from app.services import likes_service
 
 router = APIRouter(tags=["likes"])
 

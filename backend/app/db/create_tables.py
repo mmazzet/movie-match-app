@@ -1,10 +1,10 @@
+from app.core.logger import logger
 from app.db.database import Base, engine
-from app.models.user import User
-from app.models.movie import Movie
 from app.models.like import Like
+from app.models.movie import Movie
 from app.models.room import Room
 from app.models.room_member import RoomMember
-from app.core.logger import logger
+from app.models.user import User
 
 try:
     # This creates all tables that inherit from Base

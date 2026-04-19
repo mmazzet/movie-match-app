@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from app.repositories import movie_repository, like_repository
+
 from app.core.exceptions import NotFoundError
 from app.core.logger import logger
+from app.repositories import like_repository, movie_repository
 
 
 def like_movie(

@@ -7,15 +7,15 @@
 ##############################
 
 
-from fastapi import APIRouter, HTTPException, status, Depends, Request
+from fastapi import APIRouter, Depends, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from sqlalchemy.orm import Session
+
 from app.api.dependencies import get_db
 from app.schemas import schemas
 from app.services import auth_service
-from app.core.config import settings
-from slowapi import Limiter
-from slowapi.util import get_remote_address
 
 limiter = Limiter(key_func=get_remote_address)
 

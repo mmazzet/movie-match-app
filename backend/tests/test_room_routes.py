@@ -1,10 +1,10 @@
 def test_create_room(client):
-    creator = client.post(
+    client.post(
         "/api/v1/auth/register",
         json={"email": "marge@example.com", "password": "Password123!"},
     )
 
-    friend = client.post(
+    client.post(
         "/api/v1/auth/register",
         json={"email": "homer@example.com", "password": "Password123!"},
     )
@@ -26,7 +26,7 @@ def test_create_room(client):
 
 
 def test_create_room_friend_not_found(client):
-    creator = client.post(
+    client.post(
         "/api/v1/auth/register",
         json={"email": "marge@example.com", "password": "Password123!"},
     )

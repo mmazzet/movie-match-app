@@ -1,8 +1,9 @@
-from app.services.room_service import create_room_with_member
-from app.repositories.user_repository import create_user
-from app.core.security import hash_password
-from app.core.exceptions import NotFoundError
 import pytest
+
+from app.core.exceptions import NotFoundError
+from app.core.security import hash_password
+from app.repositories.user_repository import create_user
+from app.services.room_service import create_room_with_member
 
 
 def test_create_room_with_member(db):
@@ -12,7 +13,7 @@ def test_create_room_with_member(db):
         hashed_password=hash_password("password"),
         db=db,
     )
-    friend = create_user(
+    create_user(
         user_email="friend@example.com",
         hashed_password=hash_password("password"),
         db=db,

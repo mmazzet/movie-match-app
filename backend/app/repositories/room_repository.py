@@ -1,9 +1,10 @@
-from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.orm import Session
+
+from app.core.exceptions import AlreadyExistsError, NotFoundError
+from app.core.logger import logger
 from app.models.room import Room
 from app.models.room_member import RoomMember
-from app.core.logger import logger
-from app.core.exceptions import AlreadyExistsError, NotFoundError
 
 
 def create_room(db: Session, name: str, created_by: int) -> Room:

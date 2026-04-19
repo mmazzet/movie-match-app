@@ -1,8 +1,10 @@
+import os
+
 import httpx
 from dotenv import load_dotenv
+
 from app.core.exceptions import ExternalServiceError
 from app.core.logger import logger
-import os
 
 load_dotenv()
 

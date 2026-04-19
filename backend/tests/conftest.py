@@ -5,10 +5,11 @@ os.environ["RATELIMIT_ENABLED"] = "0"
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from app.main import app
+
 from app.api.dependencies import get_db
 from app.db.database import Base
-from tests.test_db_config import engine, TestingSessionLocal
+from app.main import app
+from tests.test_db_config import TestingSessionLocal, engine
 
 
 # Recreate all tables before each test, drop after

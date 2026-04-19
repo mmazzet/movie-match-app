@@ -1,9 +1,10 @@
-from sqlalchemy.orm import Session
-from app.models.like import Like
-from app.models.movie import Movie
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
 from app.core.exceptions import AlreadyExistsError
 from app.core.logger import logger
+from app.models.like import Like
+from app.models.movie import Movie
 
 
 def get_like(db: Session, user_id: int, movie_id: int) -> Like | None:

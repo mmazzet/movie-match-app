@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from app.repositories import user_repository
+
 from app.core.exceptions import NotFoundError
 from app.core.logger import logger
+from app.repositories import user_repository
 
 
 def get_user(user_id: int, db: Session):

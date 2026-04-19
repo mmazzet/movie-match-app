@@ -1,7 +1,3 @@
-from app.models.user import User
-from tests.test_db_config import TestingSessionLocal
-
-
 def test_register_user(client):
     response = client.post(
         "/api/v1/auth/register",

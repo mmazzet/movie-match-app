@@ -1,16 +1,16 @@
-from jose import JWTError, jwt
-from datetime import datetime, timedelta, timezone
-from app.schemas import schemas
-from app.models.user import User
-from dotenv import load_dotenv
-from fastapi import HTTPException, status, Depends
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import Session
-from app.api import dependencies
 import os
+from datetime import datetime, timedelta, timezone
 
-from app.repositories import user_repository
+from dotenv import load_dotenv
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
+from sqlalchemy.orm import Session
+
+from app.api import dependencies
 from app.core.logger import logger
+from app.repositories import user_repository
+from app.schemas import schemas
 
 load_dotenv()
 

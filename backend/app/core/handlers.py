@@ -1,11 +1,12 @@
 from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+
 from app.core.exceptions import (
-    NotFoundError,
     AlreadyExistsError,
     AuthenticationError,
     ExternalServiceError,
+    NotFoundError,
 )
 
 

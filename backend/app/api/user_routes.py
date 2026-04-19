@@ -6,14 +6,15 @@
 # change password
 ##############################
 
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+
 from app.api.dependencies import get_db
-from app.schemas import schemas
-from app.services import user_service
+from app.core import oauth2
 from app.core.oauth2 import get_current_user
 from app.models.user import User
-from app.core import oauth2
+from app.schemas import schemas
+from app.services import user_service
 
 router = APIRouter(tags=["users"])
 
