@@ -18,21 +18,21 @@ def create_room_with_member(
         logger.warning("⚠️ Friend not found: %s", friend_email)
         raise NotFoundError("User with that email does not exist")
 
-    print("✅ Friend found:", friend.email)
+    logger.info("✅ Friend found: %s", friend.email)
 
     # Step 2: Create the room
     room = create_room(db=db, name=room_name, created_by=creator_id)
 
-    print("🏠 Room created:", room.name)
+    logger.info("🏠 Room created: %s", room.name)
 
     # Step 3: Add the creator as a member
     add_room_member(db=db, room_id=room.id, user_id=creator_id)
 
-    print("👤 Creator added to room")
+    logger.info("👤 Creator added to room: %s", creator_id)
 
     # Step 4: Add the friend as a member
     add_room_member(db=db, room_id=room.id, user_id=friend.id)
 
-    print("👤 Friend added to room")
+    logger.info("👤 Friend added to room: %s", friend.id)
 
     return room
