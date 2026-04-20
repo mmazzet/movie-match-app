@@ -1,12 +1,13 @@
 from sqlalchemy.orm import Session
 
-from app.core.exceptions import NotFoundError
+from app.core.exceptions import AlreadyExistsError, NotFoundError
 from app.core.logger import logger
 from app.models.room import Room
 from app.repositories.room_repository import (
     add_room_member,
     create_room,
     get_rooms_by_user,
+    get_room_by_pair,
 )
 from app.repositories.user_repository import get_user_by_email
 
@@ -23,6 +24,12 @@ def create_room_with_member(
         raise NotFoundError("User with that email does not exist")
 
     logger.info("✅ Friend found: %s", friend.email)
+
+    existing_room = get_room_by_pair(db=db, user1_id=creator_id, user2_id=friend.id)
+
+    if existing_room is not None:
+        logger.warning("⚠️ Room already exists between %s and %s", creator_id, friend.id)
+        raise AlreadyExistsError("A room with this user already exists")
 
     # Step 2: Create the room
     room = create_room(db=db, name=room_name, created_by=creator_id)

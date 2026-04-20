@@ -50,3 +50,18 @@ def get_rooms_by_user(db: Session, user_id: int) -> list[Room]:
     except SQLAlchemyError:
         logger.error("❌ Failed to get rooms for user %s", user_id)
         raise NotFoundError("Failed to retrieve rooms for user")
+
+
+def get_room_by_pair(db: Session, user1_id: int, user2_id: int) -> Room | None:
+    room = (
+        db.query(Room)
+        .join(RoomMember, RoomMember.room_id == Room.id)
+        .filter(RoomMember.user_id == user1_id)
+        .filter(
+            Room.id.in_(
+                db.query(RoomMember.room_id).filter(RoomMember.user_id == user2_id)
+            )
+        )
+        .first()
+    )
+    return room
