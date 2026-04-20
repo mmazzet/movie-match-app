@@ -3,7 +3,11 @@ from sqlalchemy.orm import Session
 from app.core.exceptions import NotFoundError
 from app.core.logger import logger
 from app.models.room import Room
-from app.repositories.room_repository import add_room_member, create_room
+from app.repositories.room_repository import (
+    add_room_member,
+    create_room,
+    get_rooms_by_user,
+)
 from app.repositories.user_repository import get_user_by_email
 
 
@@ -36,3 +40,9 @@ def create_room_with_member(
     logger.info("👤 Friend added to room: %s", friend.id)
 
     return room
+
+
+def get_user_rooms(db: Session, user_id: int) -> list[Room]:
+    rooms = get_rooms_by_user(db=db, user_id=user_id)
+    logger.info("✅ Found %s rooms for user %s", len(rooms), user_id)
+    return rooms
