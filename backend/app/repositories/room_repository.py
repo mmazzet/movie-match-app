@@ -65,3 +65,14 @@ def get_room_by_pair(db: Session, user1_id: int, user2_id: int) -> Room | None:
         .first()
     )
     return room
+
+
+def get_room_by_id(db: Session, room_id: int) -> Room | None:
+    room = db.query(Room).filter(Room.id == room_id).first()
+    return room
+
+
+def get_room_members(db: Session, room_id: int) -> list[RoomMember]:
+    # Get all members of a room
+    members = db.query(RoomMember).filter(RoomMember.room_id == room_id).all()
+    return members
