@@ -5,9 +5,11 @@ from fastapi.responses import JSONResponse
 from app.core.exceptions import (
     AlreadyExistsError,
     AuthenticationError,
+    DatabaseError,
     ExternalServiceError,
     NotFoundError,
 )
+from sqlalchemy.exc import OperationalError
 
 
 def register_exception_handlers(app):
@@ -58,4 +60,19 @@ def register_exception_handlers(app):
         return JSONResponse(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"errors": errors},
+        )
+
+    @app.exception_handler(DatabaseError)
+    async def database_error_handler(request: Request, exc: DatabaseError):
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"error": exc.message},
+        )
+
+    @app.exception_handler(OperationalError)
+    async def operational_error_handler(request: Request, exc: OperationalError):
+        # DB connection lost — return a clean 503 instead of crashing
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={"error": "Database is unavailable. Please try again later."},
         )
