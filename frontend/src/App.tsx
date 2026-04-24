@@ -7,6 +7,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute"
 import { PublicRoute } from "./components/PublicRoute"
 import LandingPage from "./pages/LandingPage"
 import MyMoviesPage from "./pages/MyMoviesPage"
+import RoomsPage from "./pages/RoomsPage";
+import RoomPage from "./pages/RoomPage";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/discover" element={<ProtectedRoute><DiscoverPage /></ProtectedRoute>} />
           <Route path="/my-movies" element={<ProtectedRoute><MyMoviesPage /></ProtectedRoute>} />
+          <Route path="/rooms" element={<ProtectedRoute><RoomsPage /></ProtectedRoute>} />
+          <Route path="/rooms/:room_id" element={<ProtectedRoute><RoomPage /></ProtectedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
