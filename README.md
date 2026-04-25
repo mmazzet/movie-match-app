@@ -1,17 +1,10 @@
 # Movie Match
 
-Movie Match is a collaborative decision-making app that helps groups discover movies they'll all like. Instead of endless debate, users like movies individually, and the app shows which films appeal to everyone in the room.
-
-## What Problem Does This Solve?
-
-When groups try to pick a movie, there's often disagreement. Movie Match eliminates that friction by:
-- Letting each person rate movies independently
-- Computing matches based on shared preferences
-- Showing results instantly
+Find all the movies you and your friend like.
 
 ## Key Features
 
-- **User Authentication** - Secure registration and login with JWT tokens
+- **User Authentication** - Registration and login with JWT tokens
 - **Movie Discovery** - Browse trending and popular movies via TMDB
 - **Collaborative Rooms** - Create rooms and invite friends to like movies together
 - **Smart Matching** - Automatically displays movies liked by all members
@@ -25,7 +18,7 @@ When groups try to pick a movie, there's often disagreement. Movie Match elimina
 
 ## Project Status
 
-Currently at 40% completion. Core features (authentication, movie search) are implemented and tested. In development: room creation, matching logic, additional UI polish and other items marked in the backlog document.
+Currently at 60% completion. Core features (authentication, movie display) are implemented and tested. Room creation and matching logic are implemented but not yet tested. In development: additional UI polish and other items marked in the backlog document.
 
 ## How It Works
 
@@ -33,7 +26,7 @@ Currently at 40% completion. Core features (authentication, movie search) are im
 
 1. **Register or Login** - Create an account with email and password (securely hashed with bcrypt)
 
-2. **Discover Movies** - Browse trending or search for specific movies via TMDB API
+2. **Discover Movies** - Browse trending  movies via TMDB API
 
 3. **Like Movies** - Build your personal list of movies you'd like to watch
 
@@ -75,14 +68,10 @@ The backend is organized into three layers:
 - **Service Layer** - Contains business logic like computing matches and managing rooms
 - **Repository Layer** - Handles all database queries and data persistence
 
-This separation means:
-- Business logic is independent of the database
-- Each layer can be tested in isolation
-- Code is easier to understand and modify
 
 ### Frontend Architecture
 
-- **Component-Based** - Reusable UI components (MovieCard, Navbar, etc.)
+- **Component-Based** - Reusable UI components (MovieCard, RoomMovieCard, Navbar, etc.)
 - **Type-Safe** - TypeScript ensures all API responses are properly typed
 - **Context-Based State** - Authentication state managed via React Context
 - **Service Layer** -  API calls are organized into separate files so components don't have to handle network requests directly
@@ -125,7 +114,7 @@ Implemented secure user authentication:
 ### Database Design
 
 Designed a normalized relational database with multiple tables:
-- Users, Movies, Likes, and Rooms tables with proper relationships
+- Users, Movies, Likes, Rooms and RoomMembers tables with proper relationships
 - Used Alembic migrations to version database schema changes
 - Learned how to model many-to-many relationships (users and movies)
 
@@ -146,4 +135,4 @@ Built a REST API that handles:
 ## Known Limitations & Future Work
 
 - **JWT storage**: Tokens are currently stored in localStorage for simplicity. Production apps should use httpOnly cookies to protect against XSS attacks.
-- **Remaining features**: Room functionality (in progress), multi-user rooms, more items in [backlog.md](docs/backlog.md).
+- **Remaining features**: More items in [backlog.md](docs/backlog.md).
