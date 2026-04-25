@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createRoom } from "../services/roomService";
 import type { Room } from "../types/room";
+import { getErrorMessage } from "../services/api";
 
 interface Props {
   onRoomCreated: (newRoom: Room) => void;
@@ -12,18 +13,36 @@ export default function CreateRoomForm({ onRoomCreated }: Props) {
   const [error, setError] = useState("");
 
   async function handleSubmit() {
-    console.log("🏠 Creating room:", roomName, friendEmail);
-    const newRoom = await createRoom({ room_name: roomName, friend_email: friendEmail });
-    console.log("✅ Room created:", newRoom);
+    // Validate room name is not empty
+    if (roomName.trim() === "") {
+        setError("Please enter a room name");
+        return; // Stop here, don't submit
+    }
 
-    // Tell the parent a new room was created
-    onRoomCreated(newRoom);
+    // Validate friend email is not empty
+    if (friendEmail.trim() === "") {
+        setError("Please enter a friend's email");
+        return;
+    }
 
-    // Reset the form
-    setRoomName("");
-    setFriendEmail("");
+    // Clear any previous error
     setError("");
-  }
+
+    // Try to create the room, catch any errors
+    try {
+        console.log("🏠 Creating room:", roomName, friendEmail);
+        const newRoom = await createRoom({ room_name: roomName, friend_email: friendEmail });
+        console.log("✅ Room created:", newRoom);
+
+        onRoomCreated(newRoom);
+        setRoomName("");
+        setFriendEmail("");
+    } catch (err) {
+        // Show the error to the user
+        console.log("❌ Error creating room:", err);
+        setError(getErrorMessage(err));
+    }
+}
 
   return (
     <div className="bg-white rounded-lg shadow p-6 mb-6">
