@@ -74,5 +74,5 @@ def register_exception_handlers(app):
         # DB connection lost — return a clean 503 instead of crashing
         return JSONResponse(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            content={"error": "Database is unavailable. Please try again later."},
+            content={"error": "Service is unavailable. Please try again later."},
         )
