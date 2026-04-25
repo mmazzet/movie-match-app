@@ -1,48 +1,52 @@
-import { useState } from "react";
-import { createRoom } from "../services/roomService";
-import type { Room } from "../types/room";
-import { getErrorMessage } from "../services/api";
+import { useState } from 'react'
+import { createRoom } from '../services/roomService'
+import type { Room } from '../types/room'
+import { getErrorMessage } from '../services/api'
+import logger from '../services/logger'
 
 interface Props {
-  onRoomCreated: (newRoom: Room) => void;
+  onRoomCreated: (newRoom: Room) => void
 }
 
 export default function CreateRoomForm({ onRoomCreated }: Props) {
-  const [roomName, setRoomName] = useState("");
-  const [friendEmail, setFriendEmail] = useState("");
-  const [error, setError] = useState("");
+  const [roomName, setRoomName] = useState('')
+  const [friendEmail, setFriendEmail] = useState('')
+  const [error, setError] = useState('')
 
   async function handleSubmit() {
     // Validate room name is not empty
-    if (roomName.trim() === "") {
-        setError("Please enter a room name");
-        return; // Stop here, don't submit
+    if (roomName.trim() === '') {
+      setError('Please enter a room name')
+      return // Stop here, don't submit
     }
 
     // Validate friend email is not empty
-    if (friendEmail.trim() === "") {
-        setError("Please enter a friend's email");
-        return;
+    if (friendEmail.trim() === '') {
+      setError("Please enter a friend's email")
+      return
     }
 
     // Clear any previous error
-    setError("");
+    setError('')
 
     // Try to create the room, catch any errors
     try {
-        console.log("🏠 Creating room:", roomName, friendEmail);
-        const newRoom = await createRoom({ room_name: roomName, friend_email: friendEmail });
-        console.log("✅ Room created:", newRoom);
+      logger.info('🏠 Creating room:', { roomName, friendEmail })
+      const newRoom = await createRoom({
+        room_name: roomName,
+        friend_email: friendEmail,
+      })
+      logger.info('✅ Room created:', newRoom)
 
-        onRoomCreated(newRoom);
-        setRoomName("");
-        setFriendEmail("");
+      onRoomCreated(newRoom)
+      setRoomName('')
+      setFriendEmail('')
     } catch (err) {
-        // Show the error to the user
-        console.log("❌ Error creating room:", err);
-        setError(getErrorMessage(err));
+      // Show the error to the user
+      logger.error('❌ Error creating room:', err)
+      setError(getErrorMessage(err))
     }
-}
+  }
 
   return (
     <div className="bg-white rounded-lg shadow p-6 mb-6">
@@ -76,5 +80,5 @@ export default function CreateRoomForm({ onRoomCreated }: Props) {
         </button>
       </div>
     </div>
-  );
+  )
 }

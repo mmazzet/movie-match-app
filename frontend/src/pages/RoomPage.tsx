@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { getRoomDetails } from '../services/roomService'
 import type { RoomDetail } from '../types/room'
 import RoomMovieCard from '../components/RoomMovieCard'
+import logger from '../services/logger'
 
 export default function RoomPage() {
   const { room_id } = useParams()
@@ -11,7 +12,7 @@ export default function RoomPage() {
   useEffect(() => {
     async function fetchRoom() {
       const data = await getRoomDetails(Number(room_id))
-      console.log('🏠 Room details fetched:', data)
+      logger.info('🏠 Room details fetched:', data)
       setRoom(data)
     }
     fetchRoom()
