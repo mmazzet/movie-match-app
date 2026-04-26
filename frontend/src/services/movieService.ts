@@ -1,7 +1,9 @@
-import api from "./api";
-import type { Movie } from "../types/movie";
+import api from './api'
+import type { PaginatedMoviesResponse } from '../types/movie'
 
-export const getPopularMovies = async (): Promise<Movie[]> => {
-  const response = await api.get("/movies/popular");
-  return response.data;
-};
+export const getPopularMovies = async (
+  page: number = 1
+): Promise<PaginatedMoviesResponse> => {
+  const response = await api.get('/movies/popular', { params: { page } })
+  return response.data
+}
