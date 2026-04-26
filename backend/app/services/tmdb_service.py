@@ -12,9 +12,14 @@ TMDB_BASE_URL = os.getenv("TMDB_BASE_URL")
 TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
 
-async def get_popular_movies():
+async def get_popular_movies(page: int = 1) -> list[dict]:
     url = f"{TMDB_BASE_URL}/movie/popular"
-    params = {"api_key": TMDB_API_KEY, "language": "en-IE", "region": "IE"}
+    params = {
+        "api_key": TMDB_API_KEY,
+        "language": "en-IE",
+        "region": "IE",
+        "page": page,
+    }
 
     try:
         async with httpx.AsyncClient() as client:
@@ -41,7 +46,12 @@ async def get_popular_movies():
 
         logger.info("✅ Fetched %s popular movies from TMDB", len(movies))
 
-        return movies
+        return {
+            "page": data["page"],
+            "total_pages": data["total_pages"],
+            "movies": movies,
+        }
+
     except httpx.RequestError:
         logger.error("❌ Could not connect to TMDB")
         raise ExternalServiceError("Could not connect to TMDB")
