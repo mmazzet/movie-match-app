@@ -34,6 +34,10 @@ export default function DiscoverPage() {
       })
   }, [page])
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [page])
+
   function handlePageChange(newPage: number) {
     setPage(newPage)
   }
