@@ -20,3 +20,15 @@ export interface PaginatedMoviesResponse {
   total_pages: number
   movies: Movie[]
 }
+
+export interface SearchParams {
+  query?: string
+  genre?: number
+  year_from?: number
+  year_to?: number
+  country?: string
+  language?: string
+  min_rating?: number
+  sort_by?: string
+  page?: number
+}

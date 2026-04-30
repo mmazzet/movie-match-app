@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import type { Movie } from '../types/movie'
-import { getPopularMovies } from '../services/movieService'
+import type { Movie, SearchParams } from '../types/movie'
+import { getPopularMovies, searchMovies } from '../services/movieService'
 import MovieCard from '../components/MovieCard'
 import { getLikedMovies } from '../services/likesService'
 import logger from '../services/logger'
 import Pagination from '../components/Pagination'
+import SearchFilters from '../components/SearchFilters'
 
 export default function DiscoverPage() {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -13,9 +14,13 @@ export default function DiscoverPage() {
   const [error, setError] = useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
+  const [searchParams, setSearchParams] = useState<SearchParams | null>(null)
 
   useEffect(() => {
-    Promise.all([getPopularMovies(page), getLikedMovies()])
+    const moviesPromise = searchParams
+      ? searchMovies({ ...searchParams, page })
+      : getPopularMovies(page)
+    Promise.all([moviesPromise, getLikedMovies()])
       .then(([paginated, liked]) => {
         logger.info('Discover page loaded', {
           page,
@@ -32,7 +37,7 @@ export default function DiscoverPage() {
       .finally(() => {
         setLoading(false)
       })
-  }, [page])
+  }, [page, searchParams])
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -40,6 +45,11 @@ export default function DiscoverPage() {
 
   function handlePageChange(newPage: number) {
     setPage(newPage)
+  }
+
+  function handleSearch(params: SearchParams) {
+    setPage(1)
+    setSearchParams(params)
   }
 
   if (loading) {
@@ -63,6 +73,10 @@ export default function DiscoverPage() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Discover Movies</h1>
+
+      {/* Add the search component here */}
+      <SearchFilters onSearch={handleSearch} />
+
       <Pagination
         page={page}
         totalPages={totalPages}
