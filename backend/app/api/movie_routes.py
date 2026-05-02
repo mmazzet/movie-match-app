@@ -2,7 +2,11 @@ from fastapi import APIRouter, Depends
 
 from app.core.oauth2 import get_current_user
 from app.schemas.movie_schema import PaginatedMoviesResponse
-from app.services.tmdb_service import get_popular_movies, search_and_filter_movies
+from app.services.tmdb_service import (
+    get_movie_details,
+    get_popular_movies,
+    search_and_filter_movies,
+)
 
 router = APIRouter(tags=["movies"])
 
@@ -37,4 +41,10 @@ async def search_movies(
         sort_by=sort_by,
         page=page,
     )
+    return data
+
+
+@router.get("/movies/{tmdb_id}")
+async def movie_details(tmdb_id: int, current_user=Depends(get_current_user)):
+    data = await get_movie_details(tmdb_id)
     return data
