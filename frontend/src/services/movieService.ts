@@ -1,5 +1,9 @@
 import api from './api'
-import type { PaginatedMoviesResponse, SearchParams } from '../types/movie'
+import type {
+  MovieDetail,
+  PaginatedMoviesResponse,
+  SearchParams,
+} from '../types/movie'
 
 export const getPopularMovies = async (
   page: number = 1
@@ -12,5 +16,10 @@ export const searchMovies = async (
   params: SearchParams
 ): Promise<PaginatedMoviesResponse> => {
   const response = await api.get('/movies/search', { params })
+  return response.data
+}
+
+export const getMovieDetails = async (tmdbId: number): Promise<MovieDetail> => {
+  const response = await api.get(`/movies/${tmdbId}`)
   return response.data
 }
