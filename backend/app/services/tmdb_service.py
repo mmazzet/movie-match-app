@@ -13,7 +13,8 @@ TMDB_BASE_URL = os.getenv("TMDB_BASE_URL")
 TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
 
-def parse_movie(movie: dict) -> dict:
+def _parse_movie(movie: dict) -> dict:
+    # Extract only the fields needed from raw TMDB movie data
     return {
         "tmdb_id": movie["id"],
         "title": movie["title"],
@@ -21,24 +22,6 @@ def parse_movie(movie: dict) -> dict:
         "release_date": movie.get("release_date"),
         "overview": movie.get("overview"),
     }
-
-
-async def fetch_from_tmdb(url: str, params: dict) -> dict:
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(url, params=params)
-
-            if response.status_code != 200:
-                logger.error(
-                    "❌ TMDB API error: %s - %s", response.status_code, response.text
-                )
-                raise ExternalServiceError("Failed to fetch data from TMDB")
-
-            return response.json()
-
-    except httpx.RequestError:
-        logger.error("❌ Could not connect to TMDB")
-        raise ExternalServiceError("Could not connect to TMDB")
 
 
 async def get_popular_movies(page: int = 1) -> list[dict]:
@@ -64,8 +47,8 @@ async def get_popular_movies(page: int = 1) -> list[dict]:
 
             movies = []
             for movie in data["results"]:
-                parsed = parse_movie(movie)
-                movies.append(parsed)
+                movie_info = _parse_movie(movie)
+                movies.append(movie_info)
 
         logger.info("✅ Fetched %s popular movies from TMDB", len(movies))
 
@@ -103,7 +86,7 @@ async def search_movies(query: str, page: int = 1) -> dict:
 
             movies = []
             for movie in data["results"]:
-                parsed = parse_movie(movie)
+                parsed = _parse_movie(movie)
                 movies.append(parsed)
 
         logger.info("✅ Search '%s' returned %s movies", query, len(movies))
@@ -172,8 +155,8 @@ async def search_and_filter_movies(
 
             movies = []
             for movie in data["results"]:
-                parsed = parse_movie(movie)
-                movies.append(parsed)
+                movie_info = _parse_movie(movie)
+                movies.append(movie_info)
 
         return {
             "page": data["page"],
