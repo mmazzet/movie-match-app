@@ -6,7 +6,20 @@ type ValidationError = {
   message: string
 }
 
+declare module 'axios' {
+  interface InternalAxiosRequestConfig {
+    metadata?: {
+      timer: ReturnType<typeof setTimeout>
+    }
+  }
+}
+
 let setGlobalError: ((message: string | null) => void) | null = null
+let setSlowConnection: ((value: boolean) => void) | null = null
+
+export function registerSlowConnectionHandler(handler: (value: boolean) => void) {
+  setSlowConnection = handler
+}
 
 export function registerErrorHandler(
   handler: (message: string | null) => void
@@ -23,16 +36,34 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
+  const timer = setTimeout(() => {
+    if (setSlowConnection) {
+      setSlowConnection(true)
+    }
+  }, 4000)
+
+  // Store the timer on the request so we can cancel it later
+  config.metadata = { timer }
   return config
 })
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Request succeeded — clear timer and hide banner
+    clearTimeout(response.config.metadata?.timer)
+    if (setSlowConnection) setSlowConnection(false)
+    return response
+  },
   (error) => {
+    // Request failed — clear timer and hide banner
+    clearTimeout(error.config?.metadata?.timer)
+    if (setSlowConnection) setSlowConnection(false)
+
     if (
       axios.isAxiosError(error) &&
       error.response?.status === 401 &&
-      !error.config?.url?.includes('/auth/login') // skip login route
+      !error.config?.url?.includes('/auth/login')
     ) {
       logger.warn('Token expired or invalid — redirecting to login')
       localStorage.removeItem('token')
@@ -41,9 +72,7 @@ api.interceptors.response.use(
     if (error.response?.status === 503) {
       logger.warn('Service unavailable — DB might be down')
       if (setGlobalError) {
-        setGlobalError(
-          'The server is currently unavailable. Please try again later.'
-        )
+        setGlobalError('The server is currently unavailable. Please try again later.')
       }
     }
     return Promise.reject(error)
