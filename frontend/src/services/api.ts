@@ -41,7 +41,7 @@ api.interceptors.request.use((config) => {
     if (setSlowConnection) {
       setSlowConnection(true)
     }
-  }, 4000)
+  }, 500)
 
   // Store the timer on the request so we can cancel it later
   config.metadata = { timer }
