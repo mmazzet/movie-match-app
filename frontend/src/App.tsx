@@ -11,13 +11,18 @@ import RoomsPage from './pages/RoomsPage'
 import RoomPage from './pages/RoomPage'
 import { ErrorBanner } from './components/ErrorBanner'
 import { ErrorProvider } from './context/ErrorProvider'
+import MovieDetailPage from './pages/MovieDetailPage'
+import { SlowConnectionProvider } from './context/SlowConnectionProvider'
+import { SlowConnectionBanner } from './components/SlowConnectionBanner'
 
 function App() {
   return (
     <ErrorProvider>
+      <SlowConnectionProvider>
       <AuthProvider>
         <BrowserRouter>
           <ErrorBanner />
+          <SlowConnectionBanner />
           <Routes>
             <Route
               path="/"
@@ -68,6 +73,14 @@ function App() {
               }
             />
             <Route
+              path="/movies/:tmdb_id"
+              element={
+                <ProtectedRoute>
+                  <MovieDetailPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/rooms/:room_id"
               element={
                 <ProtectedRoute>
@@ -78,6 +91,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
+      </SlowConnectionProvider>
     </ErrorProvider>
   )
 }
