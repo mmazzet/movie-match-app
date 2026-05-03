@@ -5,8 +5,8 @@ class MovieResponse(BaseModel):
     tmdb_id: int
     title: str
     poster_path: str | None
-    release_date: str
-    overview: str
+    release_date: str | None
+    overview: str | None
 
 
 class PaginatedMoviesResponse(BaseModel):
