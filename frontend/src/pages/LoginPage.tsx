@@ -22,7 +22,7 @@ function LoginPage() {
       const response = await login({ email, password })
       handleLogin(response.access_token)
       logger.info('Login successful')
-      navigate('/discover')
+      navigate('/trending')
     } catch (error) {
       logger.error('Login failed', error)
       setError(getErrorMessage(error))

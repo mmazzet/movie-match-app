@@ -15,6 +15,9 @@ export function Navbar() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+        <Link to="/trending" className="hover:text-gray-300">
+          Trending
+        </Link>
         <Link to="/discover" className="hover:text-gray-300">
           Discover
         </Link>

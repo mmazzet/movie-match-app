@@ -10,8 +10,8 @@ export function PublicRoute({ children }: { children: React.ReactNode }) {
   }
 
   if (token) {
-    logger.info('PublicRoute: authenticated user redirected to discover')
-    return <Navigate to="/discover" replace />
+    logger.info('PublicRoute: authenticated user redirected to trending')
+    return <Navigate to="/trending" replace />
   }
 
   return <>{children}</>

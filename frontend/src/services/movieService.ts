@@ -23,3 +23,10 @@ export const getMovieDetails = async (tmdbId: number): Promise<MovieDetail> => {
   const response = await api.get(`/movies/${tmdbId}`)
   return response.data
 }
+
+export const getTrendingMovies = async (
+  page: number = 1
+): Promise<PaginatedMoviesResponse> => {
+  const response = await api.get('/movies/trending', { params: { page } })
+  return response.data
+}
