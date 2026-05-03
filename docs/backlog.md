@@ -1,14 +1,22 @@
 # Backlog
 
 ## 🔧 Core Features 
-- [ ] Rooms feature (Phase 6)
-- [ ] Matches feature (Phase 7)
+- [x] Rooms feature (Phase 6)
+- [x] Matches feature (Phase 7)
 
 ## 🎬 Movie Discovery
-- [ ] Search by title
-- [ ] Filter by genre
-- [ ] Filter by date
-- [ ] Pagination on Discover page
+- [x] Search by title
+- [x] Filter by genre
+- [x] Filter by date
+- [x] Filter by country
+- [x] Pagination on Discover page
+- [ ] Add icon to return home
+
+## 🎬 Trending page
+- [x] Same functionality as Discover
+
+## 🎬 Recommendations
+- [ ] Suggest movies based on what you liked
 
 ## 🎴 Movie Card
 - [ ] "Watched" icon/button on card
@@ -21,4 +29,10 @@
 - [ ] Revamp UI
 
 ## 🎞️ Trailer
-- [ ] click on card, brings you to a page with trailer, description of the film and cast
+- [x] Click on card, brings you to a page with trailer, description of the film and cast
+
+## Performance
+- [x] Slow start, 50 sec, before you can connect to render - added a banner to inform the user
+
+## UX improvement
+- [x] Scroll reset when page changes

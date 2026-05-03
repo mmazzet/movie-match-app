@@ -1,14 +1,16 @@
 # Movie Match
 
-Find all the movies you and your friend like.
+Find the movies you and your friend both want to watch.
 
 ## Key Features
 
 - **User Authentication** - Registration and login with JWT tokens
 - **Movie Discovery** - Browse trending and popular movies via TMDB
-- **Collaborative Rooms** - Create rooms and invite friends to like movies together
-- **Smart Matching** - Automatically displays movies liked by all members
+- **Like System** - Build a personal list of movies you like
+- **Rooms** - Create a room with a friend to compare your movie preferences
+- **Match Results** - See which movies you both liked
 - **Type-Safe Full Stack** - TypeScript frontend and Python backend with strict type checking
+- **Search and Filter** - Browse movies by title, genre, year, country, language, and rating
 
 ## Tech Stack
 
@@ -18,21 +20,17 @@ Find all the movies you and your friend like.
 
 ## Project Status
 
-Currently at 60% completion. Core features (authentication, movie display) are implemented and tested. Room creation and matching logic are implemented but not yet tested. In development: additional UI polish and other items marked in the backlog document.
+Core features are implemented and working: authentication, movie search and filtering, liking movies, room creation, and match calculation. See [backlog.md](docs/backlog.md) for planned improvements.
 
 ## How It Works
 
 ### User Journey
 
-1. **Register or Login** - Create an account with email and password (securely hashed with bcrypt)
-
-2. **Discover Movies** - Browse trending  movies via TMDB API
-
-3. **Like Movies** - Build your personal list of movies you'd like to watch
-
-4. **Create a Room** - Invite a friend to see what movies you both like
-
-5. **Compare Preferences** - The app shows movies that both of you liked
+1. Create an account and log in
+2. Search for movies and like the ones you want to watch
+3. Create a room and add a friend by their email
+4. Both of you like movies in the app
+5. The room shows movies you both liked
 
 ### Example
 
@@ -41,8 +39,84 @@ Your Friend: [Dune, Avatar, Batman]
 
 Matches: [Dune, Batman]
 
-Perfect movies to watch together!
+## Installation
 
+### Prerequisites
+
+- Python 3.12+
+- Node.js 18+
+- Docker and Docker Compose (for PostgreSQL)
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Create a Python virtual environment:
+   ```bash
+   python -m venv .venv
+   ```
+
+3. Activate the virtual environment:
+   - **Windows:**
+     ```bash
+     .venv\Scripts\activate
+     ```
+   - **Mac/Linux:**
+     ```bash
+     source .venv/bin/activate
+     ```
+
+4. Install dependencies:
+   ```bash
+   pip install -e .
+   ```
+
+5. Create a `.env` file in the backend directory with:
+   ```
+   DATABASE_URL=postgresql://user:password@localhost:5432/movie_match
+   POSTGRES_USER=user
+   POSTGRES_PASSWORD=password
+   POSTGRES_DB=movie_match
+   SECRET_KEY=your_secret_key_here
+   TMDB_API_KEY=your_tmdb_api_key
+   ```
+
+6. Start PostgreSQL:
+   ```bash
+   docker-compose up -d
+   ```
+
+7. Run migrations:
+   ```bash
+   alembic upgrade head
+   ```
+
+8. Start the backend server:
+   ```bash
+   uvicorn app.main:app --reload
+   ```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+The frontend runs on `http://localhost:5173` and the backend on `http://localhost:8000`.
 
 ## Architecture Overview
 
@@ -83,18 +157,8 @@ The backend is organized into three layers:
 - **TypeScript** - Catches errors before runtime, easier to refactor
 - **Docker** - Postgres runs in Docker locally, Neon (serverless Postgres) in production
 
-For detailed architecture documentation, see [architecture.md](docs/architecture.md).
+For architecture documentation, see [architecture.md](docs/architecture.md).
 
-## Learning Highlights
-
-Building Movie Match gave me hands-on experience with several important software engineering concepts:
-
-### Clean Architecture Pattern
-
-Implemented a 3-layer backend (API → Service → Repository) that separates concerns. This means:
-- Business logic is testable without a database
-- Changing the database doesn't affect business logic
-- New features can be added without touching existing code
 
 ### Type Safety Across the Stack
 
@@ -116,21 +180,14 @@ Implemented secure user authentication:
 Designed a normalized relational database with multiple tables:
 - Users, Movies, Likes, Rooms and RoomMembers tables with proper relationships
 - Used Alembic migrations to version database schema changes
-- Learned how to model many-to-many relationships (users and movies)
 
 ### API Design with FastAPI
 
 Built a REST API that handles:
 - Request validation with automatic error messages
 - Consistent error responses across all endpoints
-- Efficient queries using SQLAlchemy ORM
+- Queries using SQLAlchemy ORM
 
-### Real-World Problem Solving
-
-- Computed movie matches by finding the intersection of liked movies
-- Managed multi-user rooms with membership tracking
-- Integrated with external API (TMDB) for movie data
-- Handled authentication across frontend and backend
 
 ## Known Limitations & Future Work
 
