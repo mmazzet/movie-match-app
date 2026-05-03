@@ -245,3 +245,51 @@ async def get_movie_details(tmdb_id: int) -> MovieDetailResponse:
         director=director,
         trailer=trailer,
     )
+
+
+def get_release_date(movie):
+    # If release_date is None, return empty string so it sorts to the end
+    if movie["release_date"] is None:
+        return ""
+    return movie["release_date"]
+
+
+async def get_trending_movies(page: int = 1) -> dict:
+    # movies trending over the last 7 days
+    url = f"{TMDB_BASE_URL}/trending/movie/week"
+    params = {
+        "api_key": TMDB_API_KEY,
+        "language": "en-IE",
+        "page": page,
+    }
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params)
+
+            if response.status_code != 200:
+                logger.error(
+                    "❌ TMDB API error: %s - %s", response.status_code, response.text
+                )
+                raise ExternalServiceError("Failed to fetch trending movies from TMDB")
+
+            data = response.json()
+
+            movies = []
+            for movie in data["results"]:
+                movie_info = _parse_movie(movie)
+                movies.append(movie_info)
+
+            movies.sort(key=get_release_date, reverse=True)
+
+        logger.info("✅ Fetched %s trending movies from TMDB", len(movies))
+
+        return {
+            "page": data["page"],
+            "total_pages": data["total_pages"],
+            "movies": movies,
+        }
+
+    except httpx.RequestError:
+        logger.error("❌ Could not connect to TMDB")
+        raise ExternalServiceError("Could not connect to TMDB")

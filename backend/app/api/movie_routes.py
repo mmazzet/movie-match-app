@@ -5,6 +5,7 @@ from app.schemas.movie_schema import PaginatedMoviesResponse
 from app.services.tmdb_service import (
     get_movie_details,
     get_popular_movies,
+    get_trending_movies,
     search_and_filter_movies,
 )
 
@@ -14,6 +15,12 @@ router = APIRouter(tags=["movies"])
 @router.get("/movies/popular", response_model=PaginatedMoviesResponse)
 async def popular_movies(page: int = 1, current_user=Depends(get_current_user)):
     data = await get_popular_movies(page=page)
+    return data
+
+
+@router.get("/movies/trending", response_model=PaginatedMoviesResponse)
+async def trending_movies(page: int = 1, current_user=Depends(get_current_user)):
+    data = await get_trending_movies(page=page)
     return data
 
 
