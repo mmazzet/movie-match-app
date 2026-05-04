@@ -12,7 +12,7 @@ export function SlowConnectionBanner() {
       <div className="flex items-center justify-center gap-2 text-blue-700 text-sm">
         {/* Spinner */}
         <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
-        <span>Connecting to server, please wait...</span>
+        <span>Connecting to server, please wait 50s...</span>
       </div>
     </div>
   )
