@@ -26,32 +26,34 @@ export default function RoomsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 px-4 py-8">
-      <div className="w-full max-w-md mx-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-white">My Rooms</h1>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="px-4 py-8 md:px-6 max-w-2xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">My Rooms</h1>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="px-4 py-2 bg-orange-500 text-white rounded-md text-sm font-medium"
+            className="px-6 py-3 bg-red-500 text-white rounded-lg text-sm font-semibold hover:bg-red-600 transition-all duration-300 transform hover:-translate-y-0.5"
           >
-            {showForm ? 'Cancel' : 'Create Room'}
+            {showForm ? '✕ Cancel' : '+ Create Room'}
           </button>
         </div>
 
         {showForm && <CreateRoomForm onRoomCreated={handleRoomCreated} />}
 
-        {rooms.map((room) => (
-          <div
-            key={room.id}
-            onClick={() => navigate(`/rooms/${room.id}`)}
-            className="p-4 mb-3 bg-white rounded-lg shadow cursor-pointer hover:bg-orange-50"
-          >
-            <p className="font-medium">{room.name}</p>
-          </div>
-        ))}
+        <div className="space-y-4">
+          {rooms.map((room) => (
+            <div
+              key={room.id}
+              onClick={() => navigate(`/rooms/${room.id}`)}
+              className="p-5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg cursor-pointer hover:border-white/20 hover:bg-white/8 transition-all duration-300 group"
+            >
+              <p className="font-bold text-white text-lg group-hover:text-red-400 transition-colors">{room.name}</p>
+            </div>
+          ))}
+        </div>
 
         {rooms.length === 0 && !showForm && (
-          <p className="text-gray-400">No rooms yet.</p>
+          <p className="text-white/60 text-center py-8">No rooms yet. Create one to get started!</p>
         )}
       </div>
     </div>

@@ -58,37 +58,39 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
 
   if (loading) {
     return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">{title}</h1>
-        <p className="text-gray-500">Loading movies...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">{title}</h1>
+        <p className="text-white/60">Loading movies...</p>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">{title}</h1>
-        <p className="text-red-500">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">{title}</h1>
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-red-400">{error}</div>
       </div>
     )
   }
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">{title}</h1>
-      <SearchFilters onSearch={handleSearch} />
-      <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {movies.map((movie) => (
-          <MovieCard
-            key={movie.tmdb_id}
-            movie={movie}
-            isLiked={likedIds.has(movie.tmdb_id)}
-          />
-        ))}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="px-4 py-8 md:px-6 max-w-7xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">{title}</h1>
+        <SearchFilters onSearch={handleSearch} />
+        <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+          {movies.map((movie) => (
+            <MovieCard
+              key={movie.tmdb_id}
+              movie={movie}
+              isLiked={likedIds.has(movie.tmdb_id)}
+            />
+          ))}
+        </div>
+        <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
       </div>
-      <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   )
 }

@@ -33,7 +33,7 @@ export default function SearchFilters({ onSearch }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-3 mb-4">
+    <div className="flex flex-col gap-3 mb-8">
 
       {/* Search bar row */}
       <div className="flex flex-col sm:flex-row gap-3">
@@ -43,24 +43,28 @@ export default function SearchFilters({ onSearch }: Props) {
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
           placeholder="Search movies..."
-          className="w-full sm:flex-1 px-3 py-2 rounded-md border border-gray-300 
-                     focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full sm:flex-1 px-4 py-3 rounded-md bg-white/8 border border-white/15 
+                     text-white placeholder-white/40 font-medium
+                     focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
+                     transition-all duration-300"
         />
 
         {/* Toggle filters button */}
         <button
           onClick={() => setShowFilters(!showFilters)}
-          className="w-full sm:w-auto px-4 py-2 rounded-md border border-gray-300
-                     text-gray-700 font-medium hover:bg-gray-100 transition-colors"
+          className="w-full sm:w-auto px-4 py-3 rounded-md border border-white/15 
+                     text-white font-semibold hover:bg-white/10 
+                     transition-all duration-300"
         >
           {showFilters ? 'Hide Filters' : 'Filters'}
         </button>
 
         <button
           onClick={handleSearch}
-          className="w-full sm:w-auto px-4 py-2 rounded-md 
-                     bg-blue-600 text-white font-medium
-                     hover:bg-blue-700 transition-colors"
+          className="w-full sm:w-auto px-6 py-3 rounded-md 
+                     bg-red-500 text-white font-semibold
+                     hover:bg-red-600 transition-all duration-300
+                     transform hover:-translate-y-0.5"
         >
           Search
         </button>

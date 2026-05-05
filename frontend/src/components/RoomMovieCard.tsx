@@ -8,19 +8,19 @@ interface Props {
 
 export default function RoomMovieCard({ movie }: Props) {
   return (
-    <div className="p-4 mb-2 bg-white rounded-lg shadow flex gap-4 items-center">
+    <div className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg hover:border-white/20 hover:bg-white/8 transition-all duration-300 flex gap-4 items-start group">
       {movie.poster_path ? (
         <img
           src={`${TMDB_IMAGE_BASE_URL}${movie.poster_path}`}
           alt={movie.title}
-          className="w-16 h-24 object-cover rounded"
+          className="w-12 aspect-[2/3] object-cover flex-shrink-0 rounded-md group-hover:shadow-lg group-hover:shadow-red-500/20 transition-all duration-300"
         />
       ) : (
-        <div className="w-16 h-24 bg-gray-200 rounded flex items-center justify-center">
-          <p className="text-xs text-gray-500">No poster</p>
+        <div className="w-12 aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 rounded-md flex items-center justify-center flex-shrink-0">
+          <p className="text-xs text-white/50">-</p>
         </div>
       )}
-      <p className="font-medium">{movie.title}</p>
+      <p className="font-semibold text-white flex-grow">{movie.title}</p>
     </div>
   );
 }

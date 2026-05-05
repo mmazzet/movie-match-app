@@ -35,51 +35,70 @@ export default function MyMoviesPage() {
 
   if (loading) {
     return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">My Movies</h1>
-        <p className="text-gray-500">Loading your movies...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">My Movies</h1>
+        <p className="text-white/60">Loading your movies...</p>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">My Movies</h1>
-        <p className="text-red-500">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">My Movies</h1>
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-red-400">{error}</div>
       </div>
     )
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">My Movies</h1>
-      <p className="mb-6 text-gray-400">{movies.length} movies liked</p>
-      <div className="flex flex-col gap-4">
-        {movies.map((movie) => (
-          <div
-            key={movie.id}
-            className="flex items-center gap-4 bg-gray-800 p-4 rounded-lg"
-          >
-            {movie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                alt={movie.title}
-                className="rounded"
-              />
-            )}
-            <div>
-              <h2 className="font-bold">{movie.title}</h2>
-              <p className="text-gray-400 text-sm">{movie.release_date}</p>
-              <button
-                onClick={() => handleUnlike(movie.tmdb_id)}
-                className="mt-2 px-4 py-1 rounded text-white text-sm bg-red-500"
-              >
-                Unlike
-              </button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="px-4 py-8 md:px-6 max-w-5xl mx-auto">
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">My Movies</h1>
+        <p className="mb-10 text-white/60 font-semibold">{movies.length} movies liked</p>
+        <div className="space-y-8">
+          {movies.map((movie, index) => (
+            <div
+              key={movie.id}
+              className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-6 items-center bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-white/20 transition-all duration-300 hover:bg-white/8 group`}
+            >
+              {movie.poster_path && (
+                <div className="w-full md:w-56 flex-shrink-0">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                    className="w-full aspect-[2/3] object-cover rounded-lg group-hover:shadow-2xl group-hover:shadow-red-500/30 transition-all duration-300 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <h2 className="font-black text-2xl md:text-3xl text-white mb-3">{movie.title}</h2>
+                  <p className="text-white/70 mb-4 leading-relaxed">{movie.overview || 'No description available.'}</p>
+                  <div className="flex flex-wrap gap-4">
+                    <div>
+                      <p className="text-white/60 text-sm">Release Date</p>
+                      <p className="text-white font-semibold">{movie.release_date}</p>
+                    </div>
+                    {movie.vote_average && (
+                      <div>
+                        <p className="text-white/60 text-sm">Rating</p>
+                        <p className="text-yellow-400 font-semibold">⭐ {movie.vote_average.toFixed(1)}/10</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <button
+                  onClick={() => handleUnlike(movie.tmdb_id)}
+                  className="mt-6 px-6 py-3 rounded-lg text-white text-sm bg-red-500 font-semibold 
+                           hover:bg-red-600 transition-all duration-300 transform hover:-translate-y-0.5 w-full md:w-auto"
+                >
+                  ✕ Remove from My Movies
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   )
