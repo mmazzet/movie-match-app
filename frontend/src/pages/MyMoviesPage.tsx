@@ -80,12 +80,6 @@ export default function MyMoviesPage() {
                       <p className="text-white/60 text-sm">Release Date</p>
                       <p className="text-white font-semibold">{movie.release_date}</p>
                     </div>
-                    {movie.vote_average && (
-                      <div>
-                        <p className="text-white/60 text-sm">Rating</p>
-                        <p className="text-yellow-400 font-semibold">⭐ {movie.vote_average.toFixed(1)}/10</p>
-                      </div>
-                    )}
                   </div>
                 </div>
                 <button
