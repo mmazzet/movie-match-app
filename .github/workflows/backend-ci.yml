@@ -39,6 +39,9 @@ jobs:
         run: |
           pip install poetry
           poetry install
+
+      - name: Debug environment
+        run: env | grep POSTGRES
       
       - name: Run tests
         working-directory: backend
