@@ -47,9 +47,9 @@ dev = [
 line-length = 88
 target-version = ["py312"]
 
-exclude = '''
+extend-exclude = '''
 /(
-    app/db/migrations/.*
+    app/db/migrations
   | __pycache__
   | \.venv
   | \.pytest_cache
