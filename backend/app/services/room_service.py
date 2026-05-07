@@ -33,7 +33,9 @@ def create_room_with_member(
     existing_room = get_room_by_pair(db=db, user1_id=creator_id, user2_id=friend.id)
 
     if existing_room is not None:
-        logger.warning("⚠️ Room already exists between %s and %s", creator_id, friend.id)
+        logger.warning(
+            "⚠️ Room already exists between %s and %s", creator_id, friend.id
+        )
         raise AlreadyExistsError("A room with this user already exists")
 
     # Step 2: Create the room

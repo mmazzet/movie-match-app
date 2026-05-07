@@ -49,7 +49,7 @@ target-version = ["py312"]
 
 exclude = '''
 /(
-    migrations/.*
+    app/db/migrations/.*
   | __pycache__
   | \.venv
   | \.pytest_cache
