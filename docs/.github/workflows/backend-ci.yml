@@ -1,0 +1,57 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - mainline
+  pull_request:
+    branches:
+      - mainline
+jobs:
+  test: 
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-pyton@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        working-directory: backend
+        run: |
+          pip install poetry
+          poetry install
+      
+      - name: Run tests
+        working-directory: backend
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          TEST_POSTGRES_DB: testdb
+          SECRET_KEY: testsecretkey
+          ALGORITHM: HS256
+          ACCESS_TOKEN_EXPIRE_MINUTES: 30
+          TMDB_BASE_URL: https://api.themoviedb.org/3
+          TMDB_API_KEY: fake_key_for_tests
+        run: poetry run pytest tests/
+    
