@@ -1,6 +1,7 @@
 from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from sqlalchemy.exc import OperationalError
 
 from app.core.exceptions import (
     AlreadyExistsError,
@@ -9,7 +10,6 @@ from app.core.exceptions import (
     ExternalServiceError,
     NotFoundError,
 )
-from sqlalchemy.exc import OperationalError
 
 
 def register_exception_handlers(app):
