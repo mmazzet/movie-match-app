@@ -52,11 +52,16 @@ jobs:
         run: |
           pip install poetry
           poetry install
-
-      - name: Debug environment
-        run: env | grep POSTGRES
       
       - name: Run tests
         working-directory: backend
         run: poetry run pytest tests/
+
+      - name: Run Ruff linter
+        working-directory: backend
+        run: poetry run ruff check .
+      
+      - name: Run Black formatter check
+        working-directory: backend
+        run: poetry run black --check .
     
