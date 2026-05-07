@@ -32,7 +32,7 @@ FAKE_TMDB_RESPONSE = {
 def test_search_movies_by_query(client):
     token = get_auth_token(client)
     with patch(
-        "app.services.tmdb_service.search_and_filter_movies",
+        "app.api.movie_routes.search_and_filter_movies",
         new=AsyncMock(return_value=FAKE_TMDB_RESPONSE),
     ):
         response = client.get(
@@ -50,7 +50,7 @@ def test_search_movies_by_genre(client):
     token = get_auth_token(client)
 
     with patch(
-        "app.services.tmdb_service.search_and_filter_movies",
+        "app.api.movie_routes.search_and_filter_movies",
         new=AsyncMock(return_value=FAKE_TMDB_RESPONSE),
     ):
         response = client.get(
@@ -78,7 +78,7 @@ def test_search_movies_no_params(client):
     token = get_auth_token(client)
 
     with patch(
-        "app.services.tmdb_service.search_and_filter_movies",
+        "app.api.movie_routes.search_and_filter_movies",
         new=AsyncMock(return_value=FAKE_TMDB_RESPONSE),
     ):
         response = client.get(
