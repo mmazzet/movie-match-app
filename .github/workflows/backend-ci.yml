@@ -11,6 +11,19 @@ jobs:
   test: 
     runs-on: ubuntu-latest
 
+    env:
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpassword
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: testdb
+      TEST_POSTGRES_DB: testdb
+      SECRET_KEY: testsecretkey
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 30
+      TMDB_BASE_URL: https://api.themoviedb.org/3
+      TMDB_API_KEY: fake_key_for_tests
+
     services:
       postgres:
         image: postgres:16
@@ -45,16 +58,5 @@ jobs:
       
       - name: Run tests
         working-directory: backend
-        env:
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpassword
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          TEST_POSTGRES_DB: testdb
-          SECRET_KEY: testsecretkey
-          ALGORITHM: HS256
-          ACCESS_TOKEN_EXPIRE_MINUTES: 30
-          TMDB_BASE_URL: https://api.themoviedb.org/3
-          TMDB_API_KEY: fake_key_for_tests
         run: poetry run pytest tests/
     
