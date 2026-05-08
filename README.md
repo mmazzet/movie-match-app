@@ -16,7 +16,7 @@ Find the movies you and your friend both want to watch.
 
 - **Frontend**: React, TypeScript, Tailwind CSS
 - **Backend**: FastAPI, Python, PostgreSQL
-- **Infrastructure**: Docker, deployed online
+- **Infrastructure**: Docker, GitHub Actions CI/CD, deployed online
 
 ## Project Status
 
@@ -156,6 +156,7 @@ The backend is organized into three layers:
 - **PostgreSQL + SQLAlchemy** - Relational database with ORM for type safety
 - **TypeScript** - Catches errors before runtime, easier to refactor
 - **Docker** - Postgres runs in Docker locally, Neon (serverless Postgres) in production
+- **GitHub Actions** - Automated CI/CD pipeline runs tests on every push and pull request to mainline
 
 For architecture documentation, see [architecture.md](docs/architecture.md).
 

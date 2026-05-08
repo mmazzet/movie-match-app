@@ -34,3 +34,8 @@ jobs:
       - name: ESLint
         run: npx eslint .
 
+      - name: Deploy to Vercel
+        if: github.event_name == 'push'
+        run: |
+          curl -X POST ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+

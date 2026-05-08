@@ -64,4 +64,9 @@ jobs:
       - name: Run Black formatter check
         working-directory: backend
         run: poetry run black --check .
+
+      - name: Deploy to Render
+        if: github.event_name == 'push'
+        run: |
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
     
