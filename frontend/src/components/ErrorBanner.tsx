@@ -14,9 +14,19 @@ export function ErrorBanner() {
   if (!errorMessage) return null
 
   return (
-    <div style={{ background: 'red', color: 'white', padding: '10px', textAlign: 'center' }}>
+    <div
+      style={{
+        background: 'red',
+        color: 'white',
+        padding: '10px',
+        textAlign: 'center',
+      }}
+    >
       {errorMessage}
-      <button onClick={() => setErrorMessage(null)} style={{ marginLeft: '10px' }}>
+      <button
+        onClick={() => setErrorMessage(null)}
+        style={{ marginLeft: '10px' }}
+      >
         X
       </button>
     </div>

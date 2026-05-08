@@ -1,7 +1,6 @@
 const isDevelopment = import.meta.env.DEV
 
 const logger = {
-
   // Use for general info: page loads, actions taken
   info: (message: string, data?: unknown) => {
     if (isDevelopment) {

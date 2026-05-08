@@ -36,17 +36,39 @@ export default function FilterPanel({
                    focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
                    transition-all duration-300 cursor-pointer"
       >
-        <option value="" className="bg-slate-900 text-white">All Genres</option>
-        <option value="28" className="bg-slate-900 text-white">Action</option>
-        <option value="35" className="bg-slate-900 text-white">Comedy</option>
-        <option value="18" className="bg-slate-900 text-white">Drama</option>
-        <option value="27" className="bg-slate-900 text-white">Horror</option>
-        <option value="878" className="bg-slate-900 text-white">Sci-Fi</option>
-        <option value="10749" className="bg-slate-900 text-white">Romance</option>
-        <option value="16" className="bg-slate-900 text-white">Animation</option>
-        <option value="10402" className="bg-slate-900 text-white">Music</option>
-        <option value="99" className="bg-slate-900 text-white">Documentary</option>
-        <option value="14" className="bg-slate-900 text-white">Fantasy</option>
+        <option value="" className="bg-slate-900 text-white">
+          All Genres
+        </option>
+        <option value="28" className="bg-slate-900 text-white">
+          Action
+        </option>
+        <option value="35" className="bg-slate-900 text-white">
+          Comedy
+        </option>
+        <option value="18" className="bg-slate-900 text-white">
+          Drama
+        </option>
+        <option value="27" className="bg-slate-900 text-white">
+          Horror
+        </option>
+        <option value="878" className="bg-slate-900 text-white">
+          Sci-Fi
+        </option>
+        <option value="10749" className="bg-slate-900 text-white">
+          Romance
+        </option>
+        <option value="16" className="bg-slate-900 text-white">
+          Animation
+        </option>
+        <option value="10402" className="bg-slate-900 text-white">
+          Music
+        </option>
+        <option value="99" className="bg-slate-900 text-white">
+          Documentary
+        </option>
+        <option value="14" className="bg-slate-900 text-white">
+          Fantasy
+        </option>
       </select>
 
       {/* Country */}
@@ -57,16 +79,36 @@ export default function FilterPanel({
                    focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
                    transition-all duration-300 cursor-pointer"
       >
-        <option value="" className="bg-slate-900 text-white">All Countries</option>
-        <option value="US" className="bg-slate-900 text-white">United States</option>
-        <option value="IE" className="bg-slate-900 text-white">Ireland</option>
-        <option value="GB" className="bg-slate-900 text-white">United Kingdom</option>
-        <option value="FR" className="bg-slate-900 text-white">France</option>
-        <option value="DE" className="bg-slate-900 text-white">Germany</option>
-        <option value="IT" className="bg-slate-900 text-white">Italy</option>
-        <option value="ES" className="bg-slate-900 text-white">Spain</option>
-        <option value="JP" className="bg-slate-900 text-white">Japan</option>
-        <option value="KR" className="bg-slate-900 text-white">South Korea</option>
+        <option value="" className="bg-slate-900 text-white">
+          All Countries
+        </option>
+        <option value="US" className="bg-slate-900 text-white">
+          United States
+        </option>
+        <option value="IE" className="bg-slate-900 text-white">
+          Ireland
+        </option>
+        <option value="GB" className="bg-slate-900 text-white">
+          United Kingdom
+        </option>
+        <option value="FR" className="bg-slate-900 text-white">
+          France
+        </option>
+        <option value="DE" className="bg-slate-900 text-white">
+          Germany
+        </option>
+        <option value="IT" className="bg-slate-900 text-white">
+          Italy
+        </option>
+        <option value="ES" className="bg-slate-900 text-white">
+          Spain
+        </option>
+        <option value="JP" className="bg-slate-900 text-white">
+          Japan
+        </option>
+        <option value="KR" className="bg-slate-900 text-white">
+          South Korea
+        </option>
       </select>
 
       {/* Year from */}
@@ -99,10 +141,24 @@ export default function FilterPanel({
                    focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500
                    transition-all duration-300 cursor-pointer"
       >
-        <option value="popularity.desc" className="bg-slate-900 text-white">Most Popular</option>
-        <option value="vote_average.desc" className="bg-slate-900 text-white">Highest Rated</option>
-        <option value="primary_release_date.desc" className="bg-slate-900 text-white">Newest First</option>
-        <option value="primary_release_date.asc" className="bg-slate-900 text-white">Oldest First</option>
+        <option value="popularity.desc" className="bg-slate-900 text-white">
+          Most Popular
+        </option>
+        <option value="vote_average.desc" className="bg-slate-900 text-white">
+          Highest Rated
+        </option>
+        <option
+          value="primary_release_date.desc"
+          className="bg-slate-900 text-white"
+        >
+          Newest First
+        </option>
+        <option
+          value="primary_release_date.asc"
+          className="bg-slate-900 text-white"
+        >
+          Oldest First
+        </option>
       </select>
     </div>
   )

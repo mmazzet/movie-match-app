@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
-import type { Movie, PaginatedMoviesResponse, SearchParams } from '../types/movie'
+import type {
+  Movie,
+  PaginatedMoviesResponse,
+  SearchParams,
+} from '../types/movie'
 import { getLikedMovies } from '../services/likesService'
 import { searchMovies } from '../services/movieService'
 import MovieCard from '../components/MovieCard'
@@ -29,7 +33,10 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
 
     Promise.all([moviesPromise, getLikedMovies()])
       .then(([paginated, liked]) => {
-        logger.info('Movie list page loaded', { page, movies: paginated.movies.length })
+        logger.info('Movie list page loaded', {
+          page,
+          movies: paginated.movies.length,
+        })
         setMovies(paginated.movies)
         setTotalPages(paginated.total_pages)
         setLikedIds(new Set(liked.map((m) => m.tmdb_id)))
@@ -59,7 +66,9 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">{title}</h1>
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">
+          {title}
+        </h1>
         <p className="text-white/60">Loading movies...</p>
       </div>
     )
@@ -68,8 +77,12 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">{title}</h1>
-        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-red-400">{error}</div>
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">
+          {title}
+        </h1>
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-red-400">
+          {error}
+        </div>
       </div>
     )
   }
@@ -77,9 +90,15 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <div className="px-4 py-8 md:px-6 max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">{title}</h1>
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">
+          {title}
+        </h1>
         <SearchFilters onSearch={handleSearch} />
-        <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
           {movies.map((movie) => (
             <MovieCard
@@ -89,7 +108,11 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
             />
           ))}
         </div>
-        <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   )

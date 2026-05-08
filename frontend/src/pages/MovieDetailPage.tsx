@@ -29,11 +29,19 @@ export default function MovieDetailPage() {
   }, [tmdb_id])
 
   if (isLoading) {
-    return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center"><p className="text-white/60 text-lg">Loading...</p></div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <p className="text-white/60 text-lg">Loading...</p>
+      </div>
+    )
   }
 
   if (!movie) {
-    return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center"><p className="text-white/60 text-lg">Movie not found.</p></div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <p className="text-white/60 text-lg">Movie not found.</p>
+      </div>
+    )
   }
 
   return (
@@ -56,7 +64,9 @@ export default function MovieDetailPage() {
           )}
 
           <div className="flex-1">
-            <h1 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">{movie.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-black text-white mb-4 tracking-tight">
+              {movie.title}
+            </h1>
             <p className="text-white/70 mb-2">📅 {movie.release_date}</p>
             <p className="text-white/70 mb-2">⏱️ {movie.runtime} min</p>
             <p className="text-yellow-400 font-bold text-xl mb-4">
@@ -69,7 +79,12 @@ export default function MovieDetailPage() {
               🌍 {movie.origin_country.join(', ')}
             </p>
             {movie.director && (
-              <p className="text-white/70">🎬 Director: <span className="font-semibold text-white">{movie.director}</span></p>
+              <p className="text-white/70">
+                🎬 Director:{' '}
+                <span className="font-semibold text-white">
+                  {movie.director}
+                </span>
+              </p>
             )}
           </div>
         </div>
@@ -87,9 +102,14 @@ export default function MovieDetailPage() {
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {(movie.cast ?? []).map((member, index) => (
                 <li key={index} className="text-white/80">
-                  <span className="font-semibold text-white">{member.name}</span>
+                  <span className="font-semibold text-white">
+                    {member.name}
+                  </span>
                   {member.character && (
-                    <span className="text-white/60"> as {member.character}</span>
+                    <span className="text-white/60">
+                      {' '}
+                      as {member.character}
+                    </span>
                   )}
                 </li>
               ))}
@@ -102,7 +122,10 @@ export default function MovieDetailPage() {
           <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-6">
             <h2 className="text-2xl font-bold text-white mb-4">Trailer</h2>
             {/* 16:9 ratio container */}
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <div
+              className="relative w-full"
+              style={{ paddingBottom: '56.25%' }}
+            >
               <iframe
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
                 src={`https://www.youtube.com/embed/${movie.trailer.key}`}

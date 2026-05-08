@@ -34,14 +34,15 @@ export default function SearchFilters({ onSearch }: Props) {
 
   return (
     <div className="flex flex-col gap-3 mb-8">
-
       {/* Search bar row */}
       <div className="flex flex-col sm:flex-row gap-3">
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') handleSearch() }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSearch()
+          }}
           placeholder="Search movies..."
           className="w-full sm:flex-1 px-4 py-3 rounded-md bg-white/8 border border-white/15 
                      text-white placeholder-white/40 font-medium
@@ -85,7 +86,6 @@ export default function SearchFilters({ onSearch }: Props) {
           onSortByChange={setSortBy}
         />
       )}
-
     </div>
   )
 }

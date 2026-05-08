@@ -1,4 +1,4 @@
-import { useSlowConnection } from "../hooks/useSlowConnection"
+import { useSlowConnection } from '../hooks/useSlowConnection'
 
 export function SlowConnectionBanner() {
   const { isSlowConnection } = useSlowConnection()
