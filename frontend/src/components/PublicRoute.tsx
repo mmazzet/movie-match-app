@@ -1,6 +1,6 @@
-import { Navigate } from "react-router-dom"
-import useAuth from "../hooks/useAuth"
-import logger from "../services/logger"
+import { Navigate } from 'react-router-dom'
+import useAuth from '../hooks/useAuth'
+import logger from '../services/logger'
 
 export function PublicRoute({ children }: { children: React.ReactNode }) {
   const { token, isLoading } = useAuth()

@@ -17,7 +17,9 @@ declare module 'axios' {
 let setGlobalError: ((message: string | null) => void) | null = null
 let setSlowConnection: ((value: boolean) => void) | null = null
 
-export function registerSlowConnectionHandler(handler: (value: boolean) => void) {
+export function registerSlowConnectionHandler(
+  handler: (value: boolean) => void
+) {
   setSlowConnection = handler
 }
 
@@ -72,7 +74,9 @@ api.interceptors.response.use(
     if (error.response?.status === 503) {
       logger.warn('Service unavailable — DB might be down')
       if (setGlobalError) {
-        setGlobalError('The server is currently unavailable. Please try again later.')
+        setGlobalError(
+          'The server is currently unavailable. Please try again later.'
+        )
       }
     }
     return Promise.reject(error)

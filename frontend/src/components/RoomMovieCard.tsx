@@ -1,9 +1,9 @@
-import type { RoomMovie } from "../types/room";
+import type { RoomMovie } from '../types/room'
 
-const TMDB_IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
 
 interface Props {
-  movie: RoomMovie;
+  movie: RoomMovie
 }
 
 export default function RoomMovieCard({ movie }: Props) {
@@ -22,5 +22,5 @@ export default function RoomMovieCard({ movie }: Props) {
       )}
       <p className="font-semibold text-white flex-grow">{movie.title}</p>
     </div>
-  );
+  )
 }

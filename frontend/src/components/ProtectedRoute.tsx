@@ -1,18 +1,18 @@
 import { Navigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import { Navbar } from './Navbar'
-import { useEffect } from 'react';
-import logger from '../services/logger';
+import { useEffect } from 'react'
+import logger from '../services/logger'
 
 function isTokenExpired(token: string): boolean {
   try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    const expiry = payload.exp * 1000;
+    const payload = JSON.parse(atob(token.split('.')[1]))
+    const expiry = payload.exp * 1000
     logger.info('Token expiry check', new Date(expiry).toLocaleString())
-    return Date.now() > expiry;
+    return Date.now() > expiry
   } catch {
     logger.warn('Could not parse token — treating as expired')
-    return true;
+    return true
   }
 }
 
@@ -31,7 +31,9 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
 
   if (!token || isTokenExpired(token)) {
-    logger.warn('ProtectedRoute: token missing or expired, redirecting to login')
+    logger.warn(
+      'ProtectedRoute: token missing or expired, redirecting to login'
+    )
     return <Navigate to="/login" replace />
   }
 

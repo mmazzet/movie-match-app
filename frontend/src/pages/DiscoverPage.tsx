@@ -3,9 +3,6 @@ import MovieListPage from './MovieListPage'
 
 export default function DiscoverPage() {
   return (
-    <MovieListPage
-      title="Discover Movies"
-      fetchMovies={getPopularMovies}
-    />
+    <MovieListPage title="Discover Movies" fetchMovies={getPopularMovies} />
   )
 }

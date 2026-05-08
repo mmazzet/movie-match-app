@@ -13,12 +13,12 @@ export default function MyMoviesPage() {
       await unlikeMovie(tmdb_id)
       setMovies((prev) => prev.filter((m) => m.tmdb_id !== tmdb_id))
       logger.info('Movie unliked', tmdb_id)
-    } catch  (error){
+    } catch (error) {
       logger.error('Failed to unlike movie', error)
     }
   }
 
- useEffect(() => {
+  useEffect(() => {
     getLikedMovies()
       .then((data) => {
         logger.info('Liked movies loaded', data.length)
@@ -36,7 +36,9 @@ export default function MyMoviesPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">My Movies</h1>
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+          My Movies
+        </h1>
         <p className="text-white/60">Loading your movies...</p>
       </div>
     )
@@ -45,8 +47,12 @@ export default function MyMoviesPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:px-6">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">My Movies</h1>
-        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-red-400">{error}</div>
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-8 tracking-tight">
+          My Movies
+        </h1>
+        <div className="rounded-lg bg-red-500/10 border border-red-500/30 p-4 text-red-400">
+          {error}
+        </div>
       </div>
     )
   }
@@ -54,8 +60,12 @@ export default function MyMoviesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       <div className="px-4 py-8 md:px-6 max-w-5xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">My Movies</h1>
-        <p className="mb-10 text-white/60 font-semibold">{movies.length} movies liked</p>
+        <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+          My Movies
+        </h1>
+        <p className="mb-10 text-white/60 font-semibold">
+          {movies.length} movies liked
+        </p>
         <div className="space-y-8">
           {movies.map((movie, index) => (
             <div
@@ -73,12 +83,18 @@ export default function MyMoviesPage() {
               )}
               <div className="flex-1 flex flex-col justify-between">
                 <div>
-                  <h2 className="font-black text-2xl md:text-3xl text-white mb-3">{movie.title}</h2>
-                  <p className="text-white/70 mb-4 leading-relaxed">{movie.overview || 'No description available.'}</p>
+                  <h2 className="font-black text-2xl md:text-3xl text-white mb-3">
+                    {movie.title}
+                  </h2>
+                  <p className="text-white/70 mb-4 leading-relaxed">
+                    {movie.overview || 'No description available.'}
+                  </p>
                   <div className="flex flex-wrap gap-4">
                     <div>
                       <p className="text-white/60 text-sm">Release Date</p>
-                      <p className="text-white font-semibold">{movie.release_date}</p>
+                      <p className="text-white font-semibold">
+                        {movie.release_date}
+                      </p>
                     </div>
                   </div>
                 </div>

@@ -34,18 +34,30 @@ function LoginPage() {
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-900 overflow-hidden">
       {/* Radial gradient overlays */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 20% 50%, rgba(239, 68, 68, 0.1), transparent 50%)' }}></div>
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.05), transparent 50%)' }}></div>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle at 20% 50%, rgba(239, 68, 68, 0.1), transparent 50%)',
+        }}
+      ></div>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.05), transparent 50%)',
+        }}
+      ></div>
 
       {/* Navbar */}
       <nav className="relative z-10 flex justify-between items-center px-6 md:px-8 py-4 md:py-6">
-        <div 
+        <div
           className="text-xl md:text-2xl font-black text-white tracking-tight cursor-pointer hover:opacity-80 transition-opacity"
           onClick={() => navigate('/')}
         >
           🎬 MovieMatch
         </div>
-        <button 
+        <button
           className="text-white hover:opacity-80 transition-opacity duration-300 font-semibold text-sm md:text-base"
           onClick={() => navigate('/')}
         >
@@ -58,7 +70,9 @@ function LoginPage() {
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">Sign In</h1>
+            <h1 className="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+              Sign In
+            </h1>
             <p className="text-white/60 text-base md:text-lg">
               Welcome back! Sign in to see your movie matches.
             </p>
@@ -68,7 +82,10 @@ function LoginPage() {
           <form onSubmit={handleSubmit}>
             {/* Error Message */}
             {error && (
-              <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-medium" role="alert">
+              <div
+                className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm font-medium"
+                role="alert"
+              >
                 {error}
               </div>
             )}
@@ -77,7 +94,10 @@ function LoginPage() {
             <div className="flex flex-col gap-6">
               {/* Email Field */}
               <div className="flex flex-col gap-2">
-                <label className="text-white/70 text-xs font-semibold uppercase tracking-wide" htmlFor="email">
+                <label
+                  className="text-white/70 text-xs font-semibold uppercase tracking-wide"
+                  htmlFor="email"
+                >
                   Email
                 </label>
                 <input
@@ -93,7 +113,10 @@ function LoginPage() {
 
               {/* Password Field */}
               <div className="flex flex-col gap-2">
-                <label className="text-white/70 text-xs font-semibold uppercase tracking-wide" htmlFor="password">
+                <label
+                  className="text-white/70 text-xs font-semibold uppercase tracking-wide"
+                  htmlFor="password"
+                >
                   Password
                 </label>
                 <input
@@ -108,9 +131,9 @@ function LoginPage() {
               </div>
 
               {/* Submit Button */}
-              <button 
-                type="submit" 
-                disabled={loading} 
+              <button
+                type="submit"
+                disabled={loading}
                 className="px-6 py-3 rounded-lg bg-red-500 text-white font-bold text-base hover:bg-red-600 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 mt-2"
               >
                 {loading ? 'Signing in...' : 'Sign In'}

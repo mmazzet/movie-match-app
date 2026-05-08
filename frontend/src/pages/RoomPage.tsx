@@ -20,7 +20,11 @@ export default function RoomPage() {
   }, [room_id])
 
   if (!room) {
-    return <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center"><p className="text-white/60 text-lg">Loading...</p></div>
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center">
+        <p className="text-white/60 text-lg">Loading...</p>
+      </div>
+    )
   }
 
   return (
@@ -33,7 +37,9 @@ export default function RoomPage() {
           >
             ← Back to Rooms
           </button>
-          <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">{room.room_name}</h1>
+          <h1 className="text-3xl md:text-4xl font-black text-white tracking-tight">
+            {room.room_name}
+          </h1>
         </div>
 
         {/* Matches - Featured at top */}

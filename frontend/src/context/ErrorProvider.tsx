@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import { ErrorContext } from "./ErrorContext"
-import { registerErrorHandler } from "../services/api"
+import { useEffect, useState } from 'react'
+import { ErrorContext } from './ErrorContext'
+import { registerErrorHandler } from '../services/api'
 
 export function ErrorProvider({ children }: { children: React.ReactNode }) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)

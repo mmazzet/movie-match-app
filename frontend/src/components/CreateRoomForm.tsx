@@ -57,7 +57,9 @@ export default function CreateRoomForm({ onRoomCreated }: Props) {
       )}
       <div className="flex flex-col gap-5">
         <div>
-          <label className="block text-sm font-semibold text-white/80 mb-2 uppercase tracking-wide">Room Name</label>
+          <label className="block text-sm font-semibold text-white/80 mb-2 uppercase tracking-wide">
+            Room Name
+          </label>
           <input
             type="text"
             placeholder="Friday Movie Night"
@@ -68,7 +70,9 @@ export default function CreateRoomForm({ onRoomCreated }: Props) {
           />
         </div>
         <div>
-          <label className="block text-sm font-semibold text-white/80 mb-2 uppercase tracking-wide">Friend Email</label>
+          <label className="block text-sm font-semibold text-white/80 mb-2 uppercase tracking-wide">
+            Friend Email
+          </label>
           <input
             type="email"
             placeholder="friend@example.com"
