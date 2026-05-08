@@ -34,6 +34,9 @@ jobs:
       - name: ESLint
         run: npx eslint .
 
+      - name: Prettier format check
+        run: npx prettier --check .
+
       - name: Deploy to Vercel
         if: github.event_name == 'push'
         run: |
