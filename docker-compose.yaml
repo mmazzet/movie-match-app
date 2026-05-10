@@ -33,5 +33,17 @@ services:
       db:
         condition: service_healthy
 
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api/v1
+    container_name: movie_match_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
