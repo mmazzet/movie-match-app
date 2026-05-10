@@ -43,9 +43,9 @@ Matches: [Dune, Batman]
 
 ### Prerequisites
 
-- Python 3.12+
-- Node.js 18+
-- Docker and Docker Compose (for PostgreSQL)
+- Python 3.12
+- Node.js 24
+- Docker and Docker Compose
 
 ### Backend Setup
 
@@ -71,7 +71,8 @@ Matches: [Dune, Batman]
 
 4. Install dependencies:
    ```bash
-   pip install -e .
+   pip install poetry
+   poetry install
    ```
 
 5. Create a `.env` file in the backend directory with:
@@ -118,6 +119,28 @@ Matches: [Dune, Batman]
 
 The frontend runs on `http://localhost:5173` and the backend on `http://localhost:8000`.
 
+### Docker Setup (Full Stack)
+
+For a complete containerized environment:
+
+1. Ensure Docker and Docker Compose are installed
+2. Create `.env` file in the backend directory with required variables
+3. Run the full stack:
+   ```bash
+   docker-compose up --build
+   ```
+
+This starts three services:
+- **Frontend** (Nginx) on `http://localhost:80`
+- **Backend** (FastAPI) on `http://localhost:8000` (internal)
+- **Database** (PostgreSQL) on `http://localhost:5432` (internal)
+
+The frontend Nginx container:
+- Serves the optimized React build (multi-stage Docker build with Node builder + Nginx server)
+- Reverse-proxies API requests (`/api/`) to the backend service
+- Handles SPA routing for client-side navigation
+- Passes `VITE_API_URL=/api/v1` at build time for correct API endpoint configuration
+
 ## Architecture Overview
 
 Movie Match follows a clean, layered architecture that separates concerns and makes the code easier to test and maintain.
@@ -155,10 +178,34 @@ The backend is organized into three layers:
 - **FastAPI** - Modern, fast, great for learning clean API design
 - **PostgreSQL + SQLAlchemy** - Relational database with ORM for type safety
 - **TypeScript** - Catches errors before runtime, easier to refactor
-- **Docker** - Postgres runs in Docker locally, Neon (serverless Postgres) in production
-- **GitHub Actions** - Automated CI/CD pipeline runs tests on every push and pull request to mainline
+- **GitHub Actions** - Automated CI/CD pipelines ensure code quality on every push and pull request to mainline
+- **Docker** - Full stack containerised environment (frontend, backend, database) for consistent local development and production deployments
 
 For architecture documentation, see [architecture.md](docs/architecture.md).
+
+## CI/CD Pipeline
+
+The project uses GitHub Actions to automate testing, linting, type checking, and deployment on every commit and pull request to the `mainline` branch.
+
+### Backend Pipeline (`backend-ci.yml`)
+
+Runs automated checks on all backend code:
+- **Python Tests**: Full test suite with pytest against a PostgreSQL 16 test database
+- **Linting**: Code quality analysis with Ruff to catch common issues
+- **Code Formatting**: Black formatting verification for consistent style
+- **Setup**: Python 3.12 with Poetry dependency management
+- **Deploy**: On success, automatically deploys to Render
+
+### Frontend Pipeline (`frontend-ci.yml`)
+
+Runs automated checks on all frontend code:
+- **TypeScript Type Checking**: `tsc --noEmit` verifies type safety across the React codebase
+- **ESLint**: Linting analysis catches code quality issues and potential bugs
+- **Prettier**: Runs formatting 
+- **Setup**: Node.js 24 with npm dependency caching for faster builds
+- **Deploy**: On success, automatically deploys to Vercel
+
+Both pipelines must pass before code can be merged to mainline, enforced via GitHub branch protection rules.
 
 
 ### Type Safety Across the Stack
