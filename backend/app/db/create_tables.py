@@ -6,11 +6,9 @@ from app.models.room import Room
 from app.models.room_member import RoomMember
 from app.models.user import User
 
-
-def create_tables():
-    try:
-        # This creates all tables that inherit from Base
-        Base.metadata.create_all(bind=engine)
-        logger.info("✅ Tables created successfully")
-    except Exception as e:
-        logger.error("❌ Failed to create tables: %s", e)
+try:
+    # This creates all tables that inherit from Base
+    Base.metadata.create_all(bind=engine)
+    logger.info("✅ Tables created successfully")
+except Exception as e:
+    logger.error("❌ Failed to create tables: %s", e)
