@@ -14,6 +14,11 @@ limiter = Limiter(key_func=get_remote_address)
 
 app = FastAPI(title="Movie Match API")
 
+# Recreate missing tables on startup
+from app.db.create_tables import create_tables
+
+create_tables()
+
 logger.info("🆙 Movie Match API is starting up")
 
 # attach the limiter to the app
