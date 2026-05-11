@@ -8,14 +8,13 @@ from app.api.router import api_router
 from app.core.config import settings
 from app.core.handlers import register_exception_handlers
 from app.core.logger import logger
+from app.db.create_tables import create_tables
 
 # creates the limiter, using the user's IP address as the key
 limiter = Limiter(key_func=get_remote_address)
 
 app = FastAPI(title="Movie Match API")
 
-# Recreate missing tables on startup
-from app.db.create_tables import create_tables
 
 create_tables()
 
