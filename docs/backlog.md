@@ -32,7 +32,14 @@
 - [x] Click on card, brings you to a page with trailer, description of the film and cast
 
 ## Performance
-- [x] Slow start, 50 sec, before you can connect to render - added a banner to inform the user
+- [x] Slow start, 50 sec, before you can connect to render - added a banner to inform the user, did not improve the performance, I don't want to be banned by render.
 
-## UX improvement
+## UX improvements
 - [x] Scroll reset when page changes
+- [ ] name of logged in user
+- [ ] Info on Rooms name with name of creator and name of friend
+
+## Infrastructure improvements
+- [ ] Set up dev containers
+- [x] Github actions CI/CD
+- [partly] Containerize full app with different configs for dev vs prod
