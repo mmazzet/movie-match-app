@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.core.exceptions import NotFoundError
 from app.core.logger import logger
-from app.repositories import watched_repository, movie_repository
+from app.repositories import movie_repository, watched_repository
 
 
 def watch_movie(
