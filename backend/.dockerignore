@@ -70,4 +70,3 @@ venv/
 .pytest_cache/
 tests/
 *.pyc
-alembic.ini

@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     POSTGRES_DB: str
     POSTGRES_HOST: str
     POSTGRES_PORT: str
+    SSL_MODE: str = "disable"  # default to disable for local
     TEST_POSTGRES_DB: str
 
     SECRET_KEY: str
