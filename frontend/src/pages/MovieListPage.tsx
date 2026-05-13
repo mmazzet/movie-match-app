@@ -42,7 +42,7 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
         setMovies(paginated.movies)
         setTotalPages(paginated.total_pages)
         setLikedIds(new Set(liked.map((m) => m.tmdb_id)))
-         setWatchedIds(new Set(watched.map((m) => m.tmdb_id)))
+        setWatchedIds(new Set(watched.map((m) => m.tmdb_id)))
       })
       .catch((err) => {
         logger.error('Failed to load movies', err)

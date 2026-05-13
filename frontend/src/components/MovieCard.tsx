@@ -13,7 +13,11 @@ interface MovieCardProps {
   isWatched: boolean
 }
 
-export default function MovieCard({ movie, isLiked, isWatched }: MovieCardProps) {
+export default function MovieCard({
+  movie,
+  isLiked,
+  isWatched,
+}: MovieCardProps) {
   const [liked, setLiked] = useState(isLiked)
 
   const handleLike = async () => {
@@ -43,7 +47,6 @@ export default function MovieCard({ movie, isLiked, isWatched }: MovieCardProps)
             alt={movie.title}
             className="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300"
           />
-          
         ) : (
           <div className="w-full aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
             <p className="text-white/50">No poster</p>
