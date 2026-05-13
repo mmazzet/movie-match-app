@@ -19,7 +19,7 @@
 - [ ] Suggest movies based on what you liked
 
 ## 🎴 Movie Card
-- [ ] "Watched" icon/button on card
+- [x] "Watched" icon/button on card
 
 ## 👤 User Profile
 - [ ] Update profile info
@@ -43,3 +43,5 @@
 - [ ] Set up dev containers
 - [x] Github actions CI/CD
 - [partly] Containerize full app with different configs for dev vs prod
+- [ ] DB prod backups
+- [ ] Creating staging with DO
