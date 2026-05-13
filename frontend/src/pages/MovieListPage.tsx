@@ -10,7 +10,6 @@ import MovieCard from '../components/MovieCard'
 import Pagination from '../components/Pagination'
 import SearchFilters from '../components/SearchFilters'
 import logger from '../services/logger'
-import { getWatchedMovies } from '../services/watchedService'
 
 interface Props {
   title: string
@@ -20,7 +19,6 @@ interface Props {
 export default function MovieListPage({ title, fetchMovies }: Props) {
   const [movies, setMovies] = useState<Movie[]>([])
   const [likedIds, setLikedIds] = useState<Set<number>>(new Set())
-  const [watchedIds, setWatchedIds] = useState<Set<number>>(new Set())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [page, setPage] = useState(1)
@@ -33,8 +31,8 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
       ? searchMovies({ ...searchParams, page })
       : fetchMovies(page)
 
-    Promise.all([moviesPromise, getLikedMovies(), getWatchedMovies()])
-      .then(([paginated, liked, watched]) => {
+    Promise.all([moviesPromise, getLikedMovies()])
+      .then(([paginated, liked]) => {
         logger.info('Movie list page loaded', {
           page,
           movies: paginated.movies.length,
@@ -42,7 +40,6 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
         setMovies(paginated.movies)
         setTotalPages(paginated.total_pages)
         setLikedIds(new Set(liked.map((m) => m.tmdb_id)))
-         setWatchedIds(new Set(watched.map((m) => m.tmdb_id)))
       })
       .catch((err) => {
         logger.error('Failed to load movies', err)
@@ -108,7 +105,6 @@ export default function MovieListPage({ title, fetchMovies }: Props) {
               key={movie.tmdb_id}
               movie={movie}
               isLiked={likedIds.has(movie.tmdb_id)}
-              isWatched={watchedIds.has(movie.tmdb_id)}
             />
           ))}
         </div>
