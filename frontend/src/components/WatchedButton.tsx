@@ -36,10 +36,10 @@ export default function WatchedButton({
       onClick={(e) => handleWatched(e)}
       title={watched ? 'Mark as unwatched' : 'Mark as watched'}
       className={`absolute top-2 right-2 text-lg rounded-full w-8 h-8 flex items-center justify-center transition-all duration-200 ${
-  watched
-    ? 'bg-blue-500/80 text-white'
-    : 'bg-black/40 text-white/50 hover:text-white hover:bg-black/60'
-}`}
+        watched
+          ? 'bg-blue-500/80 text-white'
+          : 'bg-black/40 text-white/50 hover:text-white hover:bg-black/60'
+      }`}
     >
       {watched ? '👁️' : '👁️'}
     </button>

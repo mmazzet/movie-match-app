@@ -3,15 +3,21 @@ import type { Movie } from '../types/movie'
 import { likeMovie, unlikeMovie } from '../services/likesService'
 import { Link } from 'react-router-dom'
 import logger from '../services/logger'
+import WatchedButton from './WatchedButton'
 
 const TMDB_IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
 
 interface MovieCardProps {
   movie: Movie
   isLiked: boolean
+  isWatched: boolean
 }
 
-export default function MovieCard({ movie, isLiked }: MovieCardProps) {
+export default function MovieCard({
+  movie,
+  isLiked,
+  isWatched,
+}: MovieCardProps) {
   const [liked, setLiked] = useState(isLiked)
 
   const handleLike = async () => {
@@ -46,6 +52,7 @@ export default function MovieCard({ movie, isLiked }: MovieCardProps) {
             <p className="text-white/50">No poster</p>
           </div>
         )}
+        <WatchedButton movie={movie} isWatched={isWatched} />
       </Link>
       <div className="p-3 flex flex-col flex-grow">
         <p className="font-bold text-white text-sm line-clamp-2 mb-1">
