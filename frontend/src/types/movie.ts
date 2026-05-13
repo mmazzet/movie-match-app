@@ -15,6 +15,14 @@ export interface LikeRequest {
   overview: string
 }
 
+export interface WatchedRequest {
+  tmdb_id: number
+  title: string
+  poster_path: string | null
+  release_date: string | null
+  overview: string
+}
+
 export interface PaginatedMoviesResponse {
   page: number
   total_pages: number
