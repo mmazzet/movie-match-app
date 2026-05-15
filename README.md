@@ -5,20 +5,44 @@ Find the movies you and your friend both want to watch.
 ## Key Features
 
 - **User Authentication** - Registration and login with JWT tokens
-![Sign in page](./assets/screenshots/signin_page.png)
+  <details>
+    <summary>View Screenshot</summary>
+    
+    ![Sign in page](./assets/screenshots/signin_page.png)
+  </details>
 - **Movie Discovery** - Browse trending and popular movies via TMDB
-![Discover Movies page](./assets/screenshots/discover_movies_page.png)
+  <details>
+    <summary>View Screenshot</summary>
+    
+    ![Discover Movies page](./assets/screenshots/discover_movies_page.png)
+  </details>
 - **Like System** - Build a personal list of movies you like
-![My Movies page](./assets/screenshots/my_movies_page.png)
+  <details>
+    <summary>View Screenshot</summary>
+    
+    ![My Movies page](./assets/screenshots/my_movies_page.png)
+  </details>
 - **Watched Tracking** - Mark movies as watched with eye icon indicator
 - **Rooms** - Create a room with a friend to compare your movie preferences
-![Room creation](./assets/screenshots/room_creation_page.png)
-![List of rooms](./assets/screenshots/room_list_page.png)
+  <details>
+    <summary>View Screenshots</summary>
+    
+    ![Room creation](./assets/screenshots/room_creation_page.png)
+    ![List of rooms](./assets/screenshots/room_list_page.png)
+  </details>
 - **Match Results** - See which movies you both liked
-![Room page](./assets/screenshots/my_movies_page.png)
+  <details>
+    <summary>View Screenshot</summary>
+    
+    ![Room page](./assets/screenshots/my_movies_page.png)
+  </details>
 - **Type-Safe Full Stack** - TypeScript frontend and Python backend with strict type checking
 - **Search and Filter** - Browse movies by title, genre, year, country, language, and rating
-![Search and Filter options](./assets/screenshots/search_and_filter.png)
+  <details>
+    <summary>View Screenshot</summary>
+    
+    ![Search and Filter options](./assets/screenshots/search_and_filter.png)
+  </details>
 
 ## Tech Stack
 
