@@ -131,6 +131,8 @@ export default function MovieDetailPage() {
                 src={`https://www.youtube.com/embed/${movie.trailer.key}`}
                 title={movie.trailer.name}
                 allowFullScreen
+                sandbox="allow-presentation allow-same-origin allow-scripts"
+                referrerPolicy="strict-origin-when-cross-origin"
               />
             </div>
           </div>
