@@ -28,5 +28,12 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Copy our custom Nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Copy and prepare the startup script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Expose port 80
 EXPOSE 80
+
+# Use startup script instead of default Nginx command
+CMD ["/start.sh"]
