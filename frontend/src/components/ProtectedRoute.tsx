@@ -3,11 +3,12 @@ import useAuth from '../hooks/useAuth'
 import { Navbar } from './Navbar'
 import { useEffect } from 'react'
 import logger from '../services/logger'
+import { jwtDecode } from 'jwt-decode'
 
 function isTokenExpired(token: string): boolean {
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]))
-    const expiry = payload.exp * 1000
+    const payload = jwtDecode(token)
+    const expiry = (payload.exp ?? 0) * 1000
     logger.info('Token expiry check', new Date(expiry).toLocaleString())
     return Date.now() > expiry
   } catch {
